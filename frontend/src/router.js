@@ -1,15 +1,16 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from './App';
+import { createBrowserRouter } from "react-router-dom";
 import Layout from './Layout/Layout'
+import Home from './Home/Home'
+import Library from './Library/Library'
+import Account from './Account/Account'
+import About from './About/About'
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: (
             <Layout>
-                <div>
-                    <h1>root</h1>
-                </div>
+                <Home />
             </Layout>
         ),
     },
@@ -17,9 +18,7 @@ const router = createBrowserRouter([
         path: "/library",
         element: (
             <Layout>
-                <div>
-                    <h1>Library</h1>
-                </div>
+                <Library />
             </Layout>
         )
     }, 
@@ -27,9 +26,7 @@ const router = createBrowserRouter([
         path: "/account",
         element: (
             <Layout>
-                <div>
-                   <h1>Account</h1>
-                </div>
+                <Account />
             </Layout>
         )
     },
@@ -37,9 +34,7 @@ const router = createBrowserRouter([
         path: "/about",
         element: (
             <Layout>
-                <div>
-                    <h1>About</h1>;
-                </div>  
+                <About />  
             </Layout>
         )
     }
