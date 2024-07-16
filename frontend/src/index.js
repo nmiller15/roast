@@ -1,6 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client'
 import { IconoirProvider } from 'iconoir-react';
+import router from './router';
+import { RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -8,12 +10,19 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <IconoirProvider
-      iconProps={{
-        color: '#FFF8F4'
-      }}>
-      <App />
-    </IconoirProvider>
+    <RouterProvider 
+      router={router}
+      fallbackElement={(
+          <div><p>Loading...</p></div>
+      )}
+    >
+      <IconoirProvider
+        iconProps={{
+          color: '#FFF8F4'
+        }}>
+        <App />
+      </IconoirProvider>
+    </RouterProvider>
   </React.StrictMode>
 );
 
