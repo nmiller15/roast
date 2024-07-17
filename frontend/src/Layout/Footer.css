@@ -1,3 +1,4 @@
+
 nav {
     display: flex;
     justify-content: space-around;
@@ -9,6 +10,7 @@ nav {
     max-width: clamp(390px, 400px, 700px);
     height: 67px;
     background-color: var(--black);
+    margin-top: 18px;
 }
 
 nav a {

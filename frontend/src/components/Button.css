@@ -1,0 +1,12 @@
+.Button {
+    padding: 13px 0;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.Button p {
+    font-size: 22.5px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}

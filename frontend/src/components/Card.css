@@ -6,6 +6,7 @@
     align-items: center;
     padding: 25px 17px;
     margin: 18px 0;
+    max-height: 34.5px;
 }
 
 .roast-details h3 {
@@ -18,7 +19,13 @@
     font-size: 11.52px;
 }
 
+.favorite-container {
+    max-height: 20px;
+}
+
 .favorite-container svg {
+    max-width: 20px;
+    max-height: 20px;
     scale: 1;
 }
 
