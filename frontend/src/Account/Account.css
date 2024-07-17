@@ -1,0 +1,37 @@
+.Account {
+    padding: 0px 25px;
+    padding-top: 18px;
+    max-width: clamp(390px, 400px, 700px);
+    margin: auto;
+    padding-bottom: 66px;
+}
+
+svg {
+    color: var(--white);
+}
+
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-bar svg {
+    height: 28px;
+    width: 28px;
+}
+
+.account-info {
+    text-align: center;
+}
+
+.account-info svg {
+    height: 85px;
+    width: 85px;
+    stroke-width: .35;
+    margin-top: 25px;
+}
+
+.roasts {
+    margin-top: 50px;
+}
