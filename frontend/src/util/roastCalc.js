@@ -13,6 +13,4 @@ function roastCalc(percentLoss) {
     }
 }
 
-console.log(roastCalc(15.6));
-
 export default roastCalc;

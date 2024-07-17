@@ -2,13 +2,10 @@ import React from 'react'
 import './Account.css'
 import { Settings, ProfileCircle } from 'iconoir-react'
 import Card from '../components/Card';
+import CardList from '../components/CardList';
+import roasts from '../mocks/roasts';
 
-const roastSample = {
-  name: "Ethiopian Yirgacheffe",
-  dateRoasted: new Date('July 22, 2024'),
-  percentLoss: 15.6,
-  isFavorite: true
-}
+// TODO: Utility function to get the favorite roasts entry point.
 
 function Account() {
   return (
@@ -24,7 +21,7 @@ function Account() {
       </div>
       <div className="roasts">
         <h2>Favorite Roasts</h2>
-        <Card roast={roastSample} />
+        <CardList roasts={roasts} />
       </div>
     </div>
 

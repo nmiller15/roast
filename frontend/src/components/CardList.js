@@ -1,11 +1,10 @@
 import React from 'react'
 import './CardList.css'
 import Card from './Card'
-import roasts from '../mocks/roasts';
 
 
 
-function CardList() {
+function CardList({ roasts }) {
   return (
     <div className="CardList">
         {roasts.map((roast) => {
