@@ -3,6 +3,7 @@
   --orange: #E37238;
   --blue: #1D72A0;
   --white: #FFF8F4;
+  --gray: #818282;
   --light-blue: rgba(58, 148, 196, .5);
   --light-orange: rgba(252, 149, 97, .5);
 }
@@ -19,7 +20,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
-  margin: 0;
+  margin: auto;
+  max-width: clamp(390px, 400px, 700px);
 }
 
 h1,

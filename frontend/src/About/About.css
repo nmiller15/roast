@@ -1,0 +1,48 @@
+.About {
+    padding: 0px 25px;
+    padding-top: 18px;
+    max-width: clamp(390px, 400px, 700px);
+    margin: auto;
+    padding-bottom: 66px;
+}
+
+h1 {
+    font-size: clamp(26.65px, 26.65px, 40px);
+}
+
+p {
+    font-size: clamp(16px, 18px, 20px);
+}
+
+.center-title {
+    text-align: center;
+}
+
+.center-title svg {
+    height: 82px;
+    width: 82px;
+    color: var(--white);
+    stroke-width: .35;
+    margin-top: 25px;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+    font-size: 26.56px;
+}
+
+a {
+    color: var(--white);
+}
+
+.subtitle {
+    font-size: 14.4px;
+    color: var(--gray);
+    margin: 0;
+}
+
+.description {
+    margin-top: 25px;
+}

@@ -2,10 +2,13 @@ nav {
     display: flex;
     justify-content: space-around;
     align-content: center;
+    padding-top: 12px;
     position: fixed;
     bottom: 0;
     width: 100%;
+    max-width: clamp(390px, 400px, 700px);
     height: 67px;
+    background-color: var(--black);
 }
 
 nav a {
