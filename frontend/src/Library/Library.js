@@ -5,7 +5,7 @@ import roasts from '../mocks/roasts';
 
 function Library() {
   return (
-    <div className="Library">
+    <div className="Library Page">
         <h1>Library</h1>
         <CardList roasts={roasts} />
     </div>

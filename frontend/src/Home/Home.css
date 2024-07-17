@@ -1,12 +1,9 @@
 .Home {
-    padding: 0px 25px;
-    padding-top: 75.5px;
-    max-width: clamp(390px, 400px, 700px);
-    margin: auto;
-    margin-bottom: 0;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
+    position: relative;
+    top: 0;
 }
 
 .Home h1 {
@@ -16,9 +13,9 @@
 }
 
 .Home h3 {
-    font-size: 26.56px;
+    font-size: 22.56px;
     font-weight: bold;
-    margin: 18px 0;
+    margin: 60px 0 12px 0;
 }
 
 .Home p.subtitle {

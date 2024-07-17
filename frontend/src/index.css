@@ -8,9 +8,22 @@
   --light-orange: rgba(252, 149, 97, .5);
 }
 
-/* * {
+* {
   outline: 1px dashed red;
-} */
+}
+
+.Page {
+  height: 88vh;
+  padding: 0px 25px;
+  padding-top: 18px;
+  max-width: clamp(390px, 400px, 700px);
+  margin: auto;
+  padding-bottom: 66px;
+}
+
+#root {
+  overflow: hidden;
+}
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -22,6 +35,8 @@ body {
   padding: 0;
   margin: auto;
   max-width: clamp(390px, 400px, 700px);
+  height: 90vh;
+  margin-top: 0;
 }
 
 h1,

@@ -4,7 +4,7 @@ import { HeatingSquare } from 'iconoir-react'
 
 function About() {
   return (
-    <div className="About">
+    <div className="About Page">
       <h1>About</h1>
       <div className="center-title">
         <HeatingSquare />

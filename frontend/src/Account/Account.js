@@ -10,7 +10,7 @@ import roasts from '../mocks/roasts';
 
 function Account() {
   return (
-    <div className="Account">
+    <div className="Account Page">
       <div className="title-bar">
         <h1>Account</h1>
         <Settings />

@@ -1,9 +1,5 @@
 .Account {
-    padding: 0px 25px;
-    padding-top: 18px;
-    max-width: clamp(390px, 400px, 700px);
-    margin: auto;
-    padding-bottom: 66px;
+    overflow-y: scroll;
 }
 
 svg {

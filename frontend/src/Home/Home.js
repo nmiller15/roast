@@ -7,7 +7,7 @@ import roasts from '../mocks/roasts'
 
 function Home() {
   return (
-    <div className="Home">
+    <div className="Home Page">
       <div className="center-title">
         <HeatingSquare />
         <h1>Roast</h1>
