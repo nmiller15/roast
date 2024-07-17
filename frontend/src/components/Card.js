@@ -2,6 +2,7 @@ import React from 'react'
 import './Card.css';
 import { Heart, HeartSolid } from 'iconoir-react';
 import { useState, useEffect } from 'react';
+import roastCalc from '../util/roastCalc';
 
 function Card({ roast }) {
     const [isFavorite, setIsFavorite] = useState(roast.isFavorite);
@@ -20,7 +21,7 @@ function Card({ roast }) {
         <div className="Card">
             <div className="roast-details">
                 <h3>{name}</h3>
-                <p>{month + 1}/{day}/{year} - Medium ({percentLoss}%)</p>
+                <p>{month + 1}/{day}/{year} - {roastCalc(percentLoss)} ({percentLoss}%)</p>
             </div>
             <div className="favorite-container" onClick={handleHeartClick}>
                 { isFavorite 
