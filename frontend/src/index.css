@@ -19,10 +19,11 @@
   max-width: clamp(390px, 400px, 700px);
   margin: auto;
   margin-bottom: 10vh;
+  overflow-y: scroll;
 }
 
 #root {
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 100%;
 }
 
@@ -38,6 +39,7 @@ body {
   max-width: clamp(390px, 400px, 700px);
   margin-top: 0;
   height: 100vh;
+  overflow: hidden;
 }
 
 h1,

@@ -19,7 +19,7 @@ function About() {
         <h2>About Me</h2>
         <p className="subtitle">Nolan Miller</p>
       </div>
-      <div className='description'>
+      <div className='description bottom'>
         <p>I’m a self-taught web developer with a passion for design, coffee, Jesus, and technology. </p>
         <p>If you have any suggestions, reach out to me at <a href="mailto:mail@nolanmiller.me">mail@nolanmiller.me.</a></p>
       </div>
