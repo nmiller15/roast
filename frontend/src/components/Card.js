@@ -49,15 +49,13 @@ function Card({ roast }) {
     }
 
     // Change the active state of a card
-    const toggleIsActive = (e) => {
-        setIsActive(!isActive);
-    }
-
     const expand = (e) => {
+        console.log('Expanding')
         setIsActive(true);
     }
 
     const collapse = (e) => {
+        console.log('Collapsing');
         setIsActive(false);
     }
 
@@ -92,7 +90,7 @@ function Card({ roast }) {
                     <div className="expanded-body">
                         <div className="expanded-description">
                             {/* TODO: Create a rating component, pass down rating and return stars with the right value */}
-                            <p>Roasted on {dateFormat(dateRoasted, "mmmm, d, yyyy")}</p>
+                            <p>Roasted on {dateFormat(dateRoasted, "mmmm d, yyyy")}</p>
                             <p>{roastString(percentLoss)} ({percentLoss}%)</p>
                             <p>{roastedOz} oz</p>
                         </div>
