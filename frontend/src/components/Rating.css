@@ -1,0 +1,10 @@
+.rating {
+    display: flex;
+}
+
+.rating svg {
+    height: 17px;
+    width: 17px;
+    margin-top: 5px;
+    margin-right: 2px;
+}

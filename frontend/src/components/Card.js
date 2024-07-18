@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Heart, HeartSolid, PlusCircle } from 'iconoir-react';
 import dateFormat, { masks } from "dateformat";
 import Button from './Button';
+import Rating from './Rating';
 import roastCalc from '../util/roastCalc';
 import roastString from '../util/roastString';
 import percentLossCalc from '../util/percentLossCalc';
@@ -89,6 +90,7 @@ function Card({ roast }) {
                     <hr/>
                     <div className="expanded-body">
                         <div className="expanded-description">
+                            <Rating rating={rating} />
                             {/* TODO: Create a rating component, pass down rating and return stars with the right value */}
                             <p>Roasted on {dateFormat(dateRoasted, "mmmm d, yyyy")}</p>
                             <p>{roastString(percentLoss)} ({percentLoss}%)</p>
