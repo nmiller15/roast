@@ -16,6 +16,7 @@ const roasts = [
         tempRiseSeconds: 180,
         openedLidSeconds: 210,
         heatOffSeconds: 235,
+        dumpedSeconds: 255,
         isFavorite: true,
         notes: "Doesn’t taste as good as last time... I wonder if theweather is making the beans roast faster now that it’s warmer"
     },
@@ -35,6 +36,7 @@ const roasts = [
         tempRiseSeconds: 180,
         openedLidSeconds: 210,
         heatOffSeconds: 235,
+        dumpedSeconds: 255,
         isFavorite: true,
         notes: "Doesn’t taste as good as last time... I wonder if theweather is making the beans roast faster now that it’s warmer"
     },
@@ -54,6 +56,7 @@ const roasts = [
         tempRiseSeconds: 180,
         openedLidSeconds: 210,
         heatOffSeconds: 235,
+        dumpedSeconds: 255,
         isFavorite: true,
         notes: "Doesn’t taste as good as last time... I wonder if theweather is making the beans roast faster now that it’s warmer"
     },
@@ -73,6 +76,7 @@ const roasts = [
         tempRiseSeconds: 180,
         openedLidSeconds: 210,
         heatOffSeconds: 235,
+        dumpedSeconds: 255,
         isFavorite: true,
         notes: "Doesn’t taste as good as last time... I wonder if theweather is making the beans roast faster now that it’s warmer"
     },
@@ -92,6 +96,7 @@ const roasts = [
         tempRiseSeconds: 180,
         openedLidSeconds: 210,
         heatOffSeconds: 235,
+        dumpedSeconds: 255,
         isFavorite: true,
         notes: "Doesn’t taste as good as last time... I wonder if theweather is making the beans roast faster now that it’s warmer"
     },
@@ -111,6 +116,7 @@ const roasts = [
         tempRiseSeconds: 180,
         openedLidSeconds: 210,
         heatOffSeconds: 235,
+        dumpedSeconds: 255,
         isFavorite: true,
         notes: "Doesn’t taste as good as last time... I wonder if theweather is making the beans roast faster now that it’s warmer"
     },
@@ -130,6 +136,7 @@ const roasts = [
         tempRiseSeconds: 180,
         openedLidSeconds: 210,
         heatOffSeconds: 235,
+        dumpedSeconds: 255,
         isFavorite: true,
         notes: "Doesn’t taste as good as last time... I wonder if theweather is making the beans roast faster now that it’s warmer"
     },
@@ -149,6 +156,7 @@ const roasts = [
         tempRiseSeconds: 180,
         openedLidSeconds: 210,
         heatOffSeconds: 235,
+        dumpedSeconds: 255,
         isFavorite: true,
         notes: "Doesn’t taste as good as last time... I wonder if theweather is making the beans roast faster now that it’s warmer"
     }
