@@ -49,6 +49,7 @@
     background-color: #202020;
     opacity: 1;
     transition: opacity .5s ease-in;
+    z-index: 100;
 }
 
 .expanded {

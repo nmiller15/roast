@@ -53,14 +53,18 @@ function Card({ roast }) {
         setIsActive(!isActive);
     }
 
-    useEffect(() => {
+    const expand = (e) => {
+        setIsActive(true);
+    }
 
-    }, [isActive]);
+    const collapse = (e) => {
+        setIsActive(false);
+    }
 
-    return isActive
+    return !isActive
     ?  (
         <div className="Card collapsed">
-            <div className="roast-details" onClick={toggleIsActive}>
+            <div className="roast-details" onClick={expand}>
                 <h3>{name}</h3>
                 <p>{dateFormat(dateRoasted, "mm/dd/yyyy")} - {roastCalc(percentLoss)} ({percentLoss}%)</p>
             </div>
@@ -151,7 +155,7 @@ function Card({ roast }) {
                     <Button 
                         color="var(--light-orange)" 
                         text="Close"
-                        callback={toggleIsActive}
+                        callback={collapse}
                     />
             </div>
         </div>
