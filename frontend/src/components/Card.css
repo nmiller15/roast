@@ -75,6 +75,9 @@
 }
 
 hr {
+    box-sizing: border-box;
+    color: var(--white);
+    border: .5px rgba(255, 248, 244, .5) solid;
     width: 100%;
 }
 
