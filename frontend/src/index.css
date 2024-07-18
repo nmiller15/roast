@@ -8,9 +8,9 @@
   --light-orange: rgba(252, 149, 97, .5);
 }
 
-* {
+/* * {
   outline: 1px dashed red;
-}
+} */
 
 .Page {
   height: 88vh;
@@ -18,11 +18,12 @@
   padding-top: 18px;
   max-width: clamp(390px, 400px, 700px);
   margin: auto;
-  padding-bottom: 66px;
+  margin-bottom: 10vh;
 }
 
 #root {
   overflow: hidden;
+  height: 100%;
 }
 
 body {
@@ -35,8 +36,8 @@ body {
   padding: 0;
   margin: auto;
   max-width: clamp(390px, 400px, 700px);
-  height: 90vh;
   margin-top: 0;
+  height: 100vh;
 }
 
 h1,

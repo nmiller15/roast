@@ -8,7 +8,7 @@ const Footer = () => {
     const size = "38px"
 
     return (
-        <div className="Footer">
+        <>
             <nav>
                 <Link to="/">
                     <HeatingSquare height={size} width={size}/>
@@ -23,7 +23,7 @@ const Footer = () => {
                     <InfoCircle height={size} width={size}/>
                 </Link>
             </nav>
-        </div>    
+        </>    
     )
 }
 

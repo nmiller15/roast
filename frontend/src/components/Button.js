@@ -2,8 +2,6 @@ import React from 'react'
 import './Button.css'
 
 function Button({ color, text }) {
-
-    // Turns prop into a usable color variable
     
     return (
         <div className="Button"
