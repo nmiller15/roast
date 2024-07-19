@@ -5,7 +5,7 @@ import '../components/Card.css'
 import Button from '../components/Button'
 import NewRoastForm from './NewRoastForm'
 
-function Roast({ roast, close }) {
+function Roaster({ roast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
   // start-roast-form > roast-active > finish-roast-form > roast-complete
   const [roastStep, setRoastStep] = useState(1);
@@ -64,11 +64,18 @@ function Roast({ roast, close }) {
     : progress === 'roast-active' ?
     (
       <div className="Card roast">
-        <Button 
-          text="Record Step"
-          color="var(--light-blue)"
-          callback={nextStep}
-        />
+        <div className="roaster-header">
+
+        </div>
+        <hr />
+        <div className="roaster-body">
+
+          <Button 
+            text="Record Step"
+            color="var(--light-blue)"
+            callback={nextStep}
+          />
+        </div>
         <Button 
           text="Skip Step"
           color="var(--light-blue)"
@@ -105,4 +112,4 @@ function Roast({ roast, close }) {
     : <></>
 }
 
-export default Roast
+export default Roaster
