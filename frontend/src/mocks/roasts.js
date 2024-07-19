@@ -1,3 +1,46 @@
+class Roast {
+    constructor(date) {
+        this.id = roasts.length + 1
+        this.dateRoasted = date
+        this.rating = 0
+        this.origin = ''
+        this.variety = ''
+        this.name = ''
+        this.startingWeightG = null
+        this.endingWeightG = null
+        this.heatLevel = ''
+        this.startTempF = null
+        this.lowestTempF = null
+        this.tempRiseSeconds = null
+        this.firstCrackSeconds = null
+        this.tempRiseSeconds = null
+        this.openedLidSeconds = null
+        this.heatOffSeconds = null
+        this.dumpedSeconds = null
+        this.isFavorite = false
+        this.notes = ''
+    }
+    
+    setProperty(property, value) {
+        if (this.property) {
+            this.property = value;
+        }
+    }
+
+    saveRoast() {
+        let i
+        const found = roasts.find((roast, index) => {
+            if (roast.id === this.id) {
+                i = index
+                return index
+            }
+        })   
+        if (found) {
+            roasts[found] = this;
+        }
+    }
+}
+
 const roasts = [
     {
         id: 1,
@@ -162,4 +205,5 @@ const roasts = [
     }
 ]
 
+export { Roast };
 export default roasts;

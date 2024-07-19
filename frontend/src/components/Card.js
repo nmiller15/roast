@@ -76,72 +76,72 @@ function Card({ roast }) {
         </div>
     )
     : (
-        <div className="expanded-card-container">
+        <div className="full-screen-container">
             <div className="Card expanded">
-                    <div className="title-bar">
-                        <h2>{name}</h2>
-                        <div className="favorite-container" onClick={handleHeartClick}>
-                            { isFavorite 
-                                ? <HeartSolid />
-                                : <Heart />
-                            }
-                        </div>
+                <div className="title-bar">
+                    <h2>{name}</h2>
+                    <div className="favorite-container" onClick={handleHeartClick}>
+                        { isFavorite 
+                            ? <HeartSolid />
+                            : <Heart />
+                        }
                     </div>
-                    <hr/>
-                    <div className="expanded-body">
-                        <div className="expanded-description">
-                            <Rating rating={rating} />
-                            {/* TODO: Create a rating component, pass down rating and return stars with the right value */}
-                            <p>Roasted on {dateFormat(dateRoasted, "mmmm d, yyyy")}</p>
-                            <p>{roastString(percentLoss)} ({percentLoss}%)</p>
-                            <p>{roastedOz} oz</p>
-                        </div>
-                        <div className="roast-details-expanded">
-                            <h3>Roast Details</h3>
-                            <table>
-                                <tr>
-                                <td class="label">Starting weight:</td> 
-                                <td class="value left">{startingOz}oz</td>
-                                <td class="label right">Roasted weight:</td>
-                                <td class="value">{roastedOz}oz</td>
-                                </tr>
-                            </table>
-                            <hr/>
-                            <table>
-                                <tr>
-                                    <td class="label">% weight lost:</td>
-                                    <td class="value left">{percentLoss}%</td>
-                                    <td class="label right">First crack:</td>
-                                    <td class="value right">{firstCrack}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Heat level:</td>
-                                    <td class="value left">{heatLevel}</td>
-                                    <td class="label right">Temp Rise:</td>
-                                    <td class="value right">{tempRise}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Max temp:</td>
-                                    <td class="value left">{startTempF}°F</td>
-                                    <td class="label right">Opened lid:</td>
-                                    <td class="value right">{openedLid}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Min temp:</td>
-                                    <td class="value left">{lowestTempF}°F</td>
-                                    <td class="label right">Heat off:</td>
-                                    <td class="value right">{heatOff}</td>
-                                </tr>
-                            </table>
-                            <hr/>
-                            <table class="summary">
-                                <tr>
-                                    <td class="label final">Total roasting time:</td>
-                                    <td class="value final">{dumped}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div className="notes">
+                </div>
+                <hr/>
+                <div className="expanded-body">
+                    <div className="expanded-description">
+                        <Rating rating={rating} />
+                        {/* TODO: Create a rating component, pass down rating and return stars with the right value */}
+                        <p>Roasted on {dateFormat(dateRoasted, "mmmm d, yyyy")}</p>
+                        <p>{roastString(percentLoss)} ({percentLoss}%)</p>
+                        <p>{roastedOz} oz</p>
+                    </div>
+                    <div className="roast-details-expanded">
+                        <h3>Roast Details</h3>
+                        <table>
+                            <tr>
+                            <td class="label">Starting weight:</td> 
+                            <td class="value left">{startingOz}oz</td>
+                            <td class="label right">Roasted weight:</td>
+                            <td class="value">{roastedOz}oz</td>
+                            </tr>
+                        </table>
+                        <hr/>
+                        <table>
+                            <tr>
+                                <td class="label">% weight lost:</td>
+                                <td class="value left">{percentLoss}%</td>
+                                <td class="label right">First crack:</td>
+                                <td class="value right">{firstCrack}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Heat level:</td>
+                                <td class="value left">{heatLevel}</td>
+                                <td class="label right">Temp Rise:</td>
+                                <td class="value right">{tempRise}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Max temp:</td>
+                                <td class="value left">{startTempF}°F</td>
+                                <td class="label right">Opened lid:</td>
+                                <td class="value right">{openedLid}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Min temp:</td>
+                                <td class="value left">{lowestTempF}°F</td>
+                                <td class="label right">Heat off:</td>
+                                <td class="value right">{heatOff}</td>
+                            </tr>
+                        </table>
+                        <hr/>
+                        <table class="summary">
+                            <tr>
+                                <td class="label final">Total roasting time:</td>
+                                <td class="value final">{dumped}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div className="notes">
                         <div className="notes-head">
                             <h3>Notes</h3>
                             <PlusCircle />
@@ -149,14 +149,14 @@ function Card({ roast }) {
                         <div className="notes-field">
                             <p>{notes}</p>
                         </div>
-                        </div>
                     </div>
+                </div>
 
-                    <Button 
-                        color="var(--light-orange)" 
-                        text="Close"
-                        callback={collapse}
-                    />
+                <Button 
+                    color="var(--light-orange)" 
+                    text="Close"
+                    callback={collapse}
+                />
             </div>
         </div>
     )
