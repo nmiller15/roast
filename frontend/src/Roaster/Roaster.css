@@ -1,0 +1,115 @@
+.Card.roast {
+  background-color: var(--blue);
+}
+
+.Card.roast .roaster-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 10px 0 15px 0;
+}
+
+.Card.roast .roaster-header h2, 
+.Card.roast .roaster-body h3 {
+  font-size: 22.5px;
+  margin: 0;
+}
+
+.Card.roast .roaster-body h3 {
+  margin-top: 25px;
+}
+
+.Card.roast .roaster-body p {
+  font-size: 14.4px;
+  margin-top: 12px;
+}
+
+
+
+.roaster-body p {
+  font-size: 14.4px;
+  font-weight: normal;
+}
+
+.no-bottom-margin {
+  margin-bottom: 0;
+}
+
+/* Form Styles */
+
+form {
+  
+}
+
+
+.input-wrapper {
+  position: relative;
+  padding: .5rem 0 0;
+  display: flex;
+  place-content: center;
+}
+
+.input-field {
+  border: 0;
+  width: 78%;
+  border-bottom: 1px solid var(--translucent-white);
+  outline: 0;
+  font-size: 18px;
+  color: var(--white);
+  padding: 7px 5px;
+  padding-right: 2rem;
+  background: transparent;
+  transition: border-color 0.2s;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+}
+
+.input-field::placeholder {
+  color: transparent;
+}
+
+.input-field:placeholder-shown ~ .input-label {
+  font-size: 14.4px;
+  cursor: text;
+  color: var(--translucent-white);
+  top: 20px;
+}
+
+label, .input-field:focus ~ .input-label {
+  position: absolute;
+  top: 3px;
+  display: block;
+  font-size: 8.9px;
+  left: 20px;
+  color: var(--translucent-white);
+  transition: 0.3s;
+}
+
+.input-field:focus ~ .input-label {
+  color: var(--translucent-white);
+}
+
+.input-field:focus {
+  border-bottom: 1px solid var(--white);
+}
+
+.inline-input-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 13px;
+}
+
+.inline-input-wrapper .input-label {
+  position: relative;
+  top: 7px;
+  font-size: 14.4px;
+  padding-right: 30px;
+}
+
+.inline-input-wrapper select {
+  width: 30%;
+  font-size: 14.4px;
+  padding-right: 7px;
+}

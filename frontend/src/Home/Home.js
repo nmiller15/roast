@@ -43,7 +43,10 @@ function Home() {
    )
   :
    (
-    <Roaster roast={newRoast} close={closeRoaster}/>
+    <div className="Page">
+      <h1>Roast coffee</h1>
+      <Roaster roast={newRoast} close={closeRoaster}/>
+    </div>
    )
 
 }

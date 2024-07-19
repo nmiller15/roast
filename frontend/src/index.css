@@ -2,10 +2,11 @@
   --black: #202020;
   --orange: #E37238;
   --blue: #1D72A0;
-  --white: #FFF8F4;
+  --white: rgb(255, 248, 244);
   --gray: #818282;
   --light-blue: rgba(58, 148, 196, .5);
   --light-orange: rgba(252, 149, 97, .5);
+  --translucent-white: rgba(255, 248, 244, .75);
 }
 
 /* * {

@@ -3,6 +3,7 @@ import './Roaster.css'
 import { useState, useEffect } from 'react'
 import '../components/Card.css'
 import Button from '../components/Button'
+import NewRoastForm from './NewRoastForm'
 
 function Roast({ roast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
@@ -10,7 +11,9 @@ function Roast({ roast, close }) {
   const [roastStep, setRoastStep] = useState(1);
   // steps are 1-5
   
+  // Move through the different roaster states
   const nextProgress = () => {
+    // if (progress === 'start-roast-form') document.initialForm.submit();
     setProgress(progress === 'start-roast-form'
       ? 'roast-active'
       : progress === 'roast-active'
@@ -23,6 +26,7 @@ function Roast({ roast, close }) {
     )
   }
   
+  // Control steps during the roasting
   const nextStep = () => {
     if (roastStep < 5) {
       setRoastStep(roastStep + 1);
@@ -37,23 +41,20 @@ function Roast({ roast, close }) {
       close();
     }
   })
-  // Card split into head body and foot
-  // height is different in start state
-  // body and foot can be the same in the roast and finish state
-  // start roast form > new component
-  // Buttons:
-    // Start roast > change state to roast
-    // record step > record time, change state to next step
-    // skip step > don't record time, change state to next step
-    // see roast details
-    // Discard -> back to home and close the state
-    // Save -> construct object and send to db
-  // Timer component: keeps track of seconds and outputs a readable time
-  // Componentize the roast card to use in the final details card
 
   return progress === 'start-roast-form' ?
     (
       <div className="Card roast">
+        <div className="roaster-header">
+          <h2>Start a new roast</h2>
+        </div>
+        <hr />
+        <div className="roaster-body">
+          <p className="no-bottom-margin">Weigh your unroasted beans, and add the rest of the information for your home roast.</p>
+          <NewRoastForm roast={roast}/>
+          <h3>Heat your roaster</h3>
+          <p>Don't start your roast until your beans are ready to go in the roaster!</p>
+        </div>
         <Button 
           text="Start Roast"
           color="var(--light-blue)"
