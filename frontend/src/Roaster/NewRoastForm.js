@@ -8,8 +8,6 @@ function NewRoastForm({roast, setRoast}) {
       [e.target.name]: e.target.value
     }))
   }
-
-  console.log(roast);
   
   return (
     <form method="post" action="" name="initialForm">

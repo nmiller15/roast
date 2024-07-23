@@ -1,13 +1,9 @@
 import React from 'react'
 import './Roaster';
-import { useTimer } from 'use-timer';
 import { useState, useEffect } from 'react';
 import timeString from '../util/timeString'
 
-function Timer() {
-  const { time, start, pause, reset, status} = useTimer({
-    autostart: true
-  });
+function Timer({ time }) {
 
   return (
     <div className="Timer">

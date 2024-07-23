@@ -5,12 +5,16 @@ import '../components/Card.css'
 import Button from '../components/Button'
 import NewRoastForm from './NewRoastForm'
 import Timer from './Timer'
+import { useTimer } from 'use-timer'
 
 function Roaster({ roast, setRoast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
   // start-roast-form > roast-active > finish-roast-form > roast-complete
   const [roastStep, setRoastStep] = useState(1);
   // steps are 1-5
+
+  // Set up timer
+  const { time, start, pause, reset, status} = useTimer();
   
   // Move through the different roaster states
   const nextProgress = () => {
@@ -25,6 +29,21 @@ function Roaster({ roast, setRoast, close }) {
       ? 'inactive'
       : 'inactive' 
     )
+    if (progress === 'start-roast-form') start()
+  }
+
+  // Log the roast timing
+  const logTime = () => {
+    let key = '';
+    if (roastStep === 1) key = 'firstCrackSeconds'
+    if (roastStep === 2) key = 'tempRiseSeconds'
+    if (roastStep === 3) key = 'openedLidSeconds'
+    if (roastStep === 4) key = 'heatOffSeconds'
+    if (roastStep === 5) key = 'dumpedSeconds'
+    setRoast(prev => ({
+      ...prev,
+      [key]: time
+    }))
   }
   
   // Control steps during the roasting
@@ -33,10 +52,16 @@ function Roaster({ roast, setRoast, close }) {
       setRoastStep(roastStep + 1);
     } else {
       nextProgress();
+      pause();
     }
   }
 
-  // TODO: Capture all of the timings in state, pass the setters down to the timer
+  // Moves to next step and logs the time
+  const handleRecordStep = () => {
+    logTime();
+    nextStep();
+  }
+  console.log(roast);
   
   // Trigger rerender of the Home Page component
   useEffect(() => {
@@ -68,7 +93,7 @@ function Roaster({ roast, setRoast, close }) {
     (
       <div className="Card roast">
         <div className="roaster-header">
-          <Timer />
+          <Timer time={time} />
         </div>
         <hr />
         <div className="roaster-body">
@@ -76,7 +101,7 @@ function Roaster({ roast, setRoast, close }) {
           <Button 
             text="Record Step"
             color="var(--light-blue)"
-            callback={nextStep}
+            callback={handleRecordStep}
           />
         </div>
         <Button 
