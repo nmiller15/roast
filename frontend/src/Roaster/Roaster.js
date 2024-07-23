@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import NewRoastForm from './NewRoastForm'
 import Timer from './Timer'
 
-function Roaster({ roast, close }) {
+function Roaster({ roast, setRoast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
   // start-roast-form > roast-active > finish-roast-form > roast-complete
   const [roastStep, setRoastStep] = useState(1);
@@ -54,7 +54,7 @@ function Roaster({ roast, close }) {
         <hr />
         <div className="roaster-body">
           <p className="no-bottom-margin">Weigh your unroasted beans, and add the rest of the information for your home roast.</p>
-          <NewRoastForm roast={roast}/>
+          <NewRoastForm roast={roast} setRoast={setRoast} />
           <h3>Heat your roaster</h3>
           <p>Don't start your roast until your beans are ready to go in the roaster!</p>
         </div>

@@ -11,10 +11,11 @@ import { Roast } from '../mocks/roasts';
 
 function Home() {
   const [roastActive, setRoastActive] = useState(false);
-  const newRoast = new Roast(Date.now());
+  const [newRoast, setNewRoast] = useState();
 
   const handleNewRoast = () => {
     setRoastActive(true)
+    setNewRoast(new Roast(Date.now()));
   }
 
   const closeRoaster = () => {
@@ -45,7 +46,7 @@ function Home() {
    (
     <div className="Page">
       <h1>Roast coffee</h1>
-      <Roaster roast={newRoast} close={closeRoaster}/>
+      <Roaster roast={newRoast} setRoast={setNewRoast} close={closeRoaster}/>
     </div>
    )
 
