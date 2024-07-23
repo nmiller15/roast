@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import '../components/Card.css'
 import Button from '../components/Button'
 import NewRoastForm from './NewRoastForm'
+import Timer from './Timer'
 
 function Roaster({ roast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
@@ -34,6 +35,8 @@ function Roaster({ roast, close }) {
       nextProgress();
     }
   }
+
+  // TODO: Capture all of the timings in state, pass the setters down to the timer
   
   // Trigger rerender of the Home Page component
   useEffect(() => {
@@ -65,7 +68,7 @@ function Roaster({ roast, close }) {
     (
       <div className="Card roast">
         <div className="roaster-header">
-
+          <Timer />
         </div>
         <hr />
         <div className="roaster-body">
