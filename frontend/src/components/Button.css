@@ -2,6 +2,14 @@
     padding: 13px 0;
     border-radius: 10px;
     text-align: center;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.Button:active {
+    filter: brightness(110%);
 }
 
 .Button p {
