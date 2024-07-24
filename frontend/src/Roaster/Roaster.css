@@ -130,3 +130,77 @@ label, .input-field:focus ~ .input-label {
   margin: 0;
   padding-bottom: 10px;
 }
+
+.Status {
+  margin-left: -17px;
+  margin-right: -17px;
+  max-width: clamp(390px, 400px, 700px);
+
+}
+
+.Status .row {
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+  height: 44px;
+  padding: 0 17px;
+  transition: all .29s ease-out;
+}
+
+.Status .row .step {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  align-items: center;
+  z-index: 10;
+}
+
+.Status .row .number {
+  background-color: var(--light-blue);
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.Status .row .number p {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  z-index: 11;
+}
+
+.Status .row p {
+  color: var(--translucent-white);
+  transition: all .29s ease-out;
+  z-index: 11;;
+}
+
+.Status .row.active {
+  background-color: #3A94C4;
+}
+
+.Status .row.active p {
+  color: var(--white);
+  font-size: 18px;
+  margin: 9px 0;
+}
+
+.Status .row.active .number {
+  background-color: var(--blue);
+}
+
+.active-row {
+  position: absolute;
+  padding: inherit;
+  /* right: 25px; */
+  width: 340px;
+  height: 44px;
+  
+  z-index: 0;
+}

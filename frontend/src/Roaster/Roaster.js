@@ -6,6 +6,7 @@ import Button from '../components/Button'
 import NewRoastForm from './NewRoastForm'
 import Timer from './Timer'
 import { useTimer } from 'use-timer'
+import Status from './Status'
 
 function Roaster({ roast, setRoast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
@@ -61,7 +62,6 @@ function Roaster({ roast, setRoast, close }) {
     logTime();
     nextStep();
   }
-  console.log(roast);
   
   // Trigger rerender of the Home Page component
   useEffect(() => {
@@ -97,7 +97,7 @@ function Roaster({ roast, setRoast, close }) {
         </div>
         <hr />
         <div className="roaster-body">
-
+          <Status roast={roast} step={roastStep} />
           <Button 
             text="Record Step"
             color="var(--light-blue)"
