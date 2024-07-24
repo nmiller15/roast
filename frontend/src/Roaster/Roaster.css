@@ -178,6 +178,7 @@ label, .input-field:focus ~ .input-label {
 .Status .row p {
   color: var(--translucent-white);
   transition: all .29s ease-out;
+  margin: 13.2px 0;
   z-index: 11;;
 }
 
@@ -203,4 +204,11 @@ label, .input-field:focus ~ .input-label {
   height: 44px;
   
   z-index: 0;
+}
+
+.roast-button .Button {
+  border: 3px solid var(--white);
+  padding: 25px 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

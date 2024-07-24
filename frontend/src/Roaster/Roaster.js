@@ -7,6 +7,7 @@ import NewRoastForm from './NewRoastForm'
 import Timer from './Timer'
 import { useTimer } from 'use-timer'
 import Status from './Status'
+import NoSleep from 'nosleep.js';
 
 function Roaster({ roast, setRoast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
@@ -16,6 +17,9 @@ function Roaster({ roast, setRoast, close }) {
 
   // Set up timer
   const { time, start, pause, reset, status} = useTimer();
+
+  // Set up noSleep
+  const noSleep = new NoSleep();
   
   // Move through the different roaster states
   const nextProgress = () => {
@@ -30,7 +34,10 @@ function Roaster({ roast, setRoast, close }) {
       ? 'inactive'
       : 'inactive' 
     )
-    if (progress === 'start-roast-form') start()
+    if (progress === 'start-roast-form') {
+      start();
+      noSleep.enable();
+    }
   }
 
   // Log the roast timing
@@ -54,6 +61,7 @@ function Roaster({ roast, setRoast, close }) {
     } else {
       nextProgress();
       pause();
+      noSleep.disable();
     }
   }
 
@@ -98,12 +106,15 @@ function Roaster({ roast, setRoast, close }) {
         <hr />
         <div className="roaster-body">
           <Status roast={roast} step={roastStep} />
+        </div>
+        <hr/>
+        <div className="roast-button">
           <Button 
             text="Record Step"
-            color="var(--light-blue)"
+            color="var(--blue)"
             callback={handleRecordStep}
           />
-        </div>
+        </div>  
         <Button 
           text="Skip Step"
           color="var(--light-blue)"
