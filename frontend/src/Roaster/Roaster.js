@@ -8,6 +8,7 @@ import Timer from './Timer'
 import { useTimer } from 'use-timer'
 import Status from './Status'
 import NoSleep from 'nosleep.js';
+import FinishRoastForm from './FinishRoastForm'
 
 function Roaster({ roast, setRoast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
@@ -23,7 +24,6 @@ function Roaster({ roast, setRoast, close }) {
   
   // Move through the different roaster states
   const nextProgress = () => {
-    // if (progress === 'start-roast-form') document.initialForm.submit();
     setProgress(progress === 'start-roast-form'
       ? 'roast-active'
       : progress === 'roast-active'
@@ -126,6 +126,15 @@ function Roaster({ roast, setRoast, close }) {
     : progress === 'finish-roast-form' ?
     (
       <div className="Card roast">
+        <div className="roaster-header">
+          <Timer time={time} />
+        </div>
+        <hr/>
+        <div className="roaster-body">
+          <h2>Almost done!</h2>
+          <p>Let your coffee cool until it has mostly stopped smoking, then weigh your beans and log the weight below.</p>
+          <FinishRoastForm roast={roast} setRoast={setRoast} />
+        </div>
         <Button 
           text="See Roast Details"
           color="var(--light-blue)"
