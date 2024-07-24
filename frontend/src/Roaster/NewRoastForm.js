@@ -11,10 +11,10 @@ function NewRoastForm({roast, setRoast}) {
   
   return (
     <form method="post" action="" name="initialForm">
-        <div className="input-wrapper">
+      <div className="input-wrapper">
         <input type="text" name="origin" id="origin" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
         <label class="input-label" for="origin">Origin</label>
-        </div>
+      </div>
       <div className="input-wrapper">
         <input type="text" name="variety" id="variety" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
         <label class="input-label" for="variety">Variety</label>
