@@ -8,14 +8,17 @@ import '../components/Card.css'
 import { useState } from 'react'
 import Roaster from '../Roaster/Roaster'
 import { Roast } from '../mocks/roasts';
-import { currentRoast } from '../signals'
+import { currentRoast, roastProgress } from '../signals'
 
 function Home() {
   const [roastActive, setRoastActive] = useState(false);
   // const [newRoast, setNewRoast] = useState();
+  const [roastProgress, setRoastProgress] = useState();
+  // start-roast-form > roast-active > finish-roast-form > roast-complete
 
   const handleNewRoast = () => {
     setRoastActive(true);
+    setRoastProgress("start-roast-form")
     currentRoast.value = new Roast(Date.now());
   }
 
@@ -49,7 +52,7 @@ function Home() {
    (
     <div className="Page roaster-active">
       <h1>Roast coffee</h1>
-      <Roaster currentRoast={currentRoast} close={closeRoaster}/>
+      <Roaster currentRoast={currentRoast} close={closeRoaster} progress={roastProgress} setProgress={setRoastProgress}/>
       <div className="lower-section">
         <h3>Previous Roast</h3>
         <CardList roasts={[roasts[roasts.length - 1]]} />
