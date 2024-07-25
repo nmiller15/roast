@@ -16,7 +16,7 @@
     margin-top: 10px;
 }
 
-.Home h3 {
+.Home h3, .lower-section h3 {
     font-size: 22.56px;
     font-weight: bold;
     margin-bottom: 0;
@@ -25,3 +25,13 @@
 .full-screen-container h1 {
     max-width: clamp(390px, 400px, 700px);
 }
+
+.roaster-active .lower-section h3:not(.Card h3) {
+    margin-top: 3px;
+}
+
+/* .roaster-active .lower-section {
+    position: relative;
+    bottom: 154px;
+    z-index: -1;
+} */

@@ -1,7 +1,7 @@
 import React from 'react'
 import timeString from '../util/timeString'
 
-function Status({ roast, step }) {
+function Status({ currentRoast, step }) {
   return (
     <div className="Status">
       <div className={step === 1 ? "active row" : "row"}>
@@ -10,7 +10,7 @@ function Status({ roast, step }) {
           <p>First crack</p>
         </div>
         <p className="time">
-          { roast.firstCrackSeconds ? timeString(roast.firstCrackSeconds) : '-'}
+          { currentRoast.value.firstCrackSeconds ? timeString(currentRoast.value.firstCrackSeconds) : '-'}
         </p>
       </div>
       <div className={step === 2 ? "active row" : "row"}>
@@ -19,7 +19,7 @@ function Status({ roast, step }) {
           <p>Temperature rise</p>
         </div>
         <p className="time">
-        { roast.tempRiseSeconds ? timeString(roast.tempRiseSeconds) : '-'}
+        { currentRoast.value.tempRiseSeconds ? timeString(currentRoast.value.tempRiseSeconds) : '-'}
         </p>
       </div>
       <div className={step === 3 ? "active row" : "row"}>
@@ -28,7 +28,7 @@ function Status({ roast, step }) {
           <p>Opened lid</p>
         </div>
         <p className="time">
-        { roast.openedLidSeconds ? timeString(roast.openedLidSeconds) : '-'}
+        { currentRoast.value.openedLidSeconds ? timeString(currentRoast.value.openedLidSeconds) : '-'}
         </p>
       </div>
       <div className={step === 4 ? "active row" : "row"}>
@@ -37,7 +37,7 @@ function Status({ roast, step }) {
           <p>Turned off heat</p>
         </div>
         <p className="time">
-        { roast.heatOffSeconds ? timeString(roast.heatOffSeconds) : '-'}
+        { currentRoast.value.heatOffSeconds ? timeString(currentRoast.value.heatOffSeconds) : '-'}
         </p>
       </div>
       <div className={step === 5 ? "active row" : "row"}>
@@ -46,7 +46,7 @@ function Status({ roast, step }) {
           <p>Dumped beans</p>
         </div>
         <p className="time">
-        { roast.dumpedSeconds ? timeString(roast.dumpedSeconds) : '-'}
+        { currentRoast.value.dumpedSeconds ? timeString(currentRoast.value.dumpedSeconds) : '-'}
         </p>
       </div>
     </div>

@@ -29,6 +29,8 @@ function RoastDetails({ roast }) {
     notes
   } = roast;
 
+  console.log(roast);
+
   const percentLoss = percentLossCalc(roast);
   const firstCrack = timeString(firstCrackSeconds);
   const tempRise = timeString(tempRiseSeconds)

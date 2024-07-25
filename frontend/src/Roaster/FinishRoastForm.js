@@ -1,12 +1,9 @@
 import React from 'react'
 
-function FinishRoastForm({ roast, setRoast }) {
+function FinishRoastForm({ currentRoast }) {
 
   const handleChange = (e) => {
-    setRoast((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
+    currentRoast.value[e.target.name] = e.target.value
   }
 
   return (

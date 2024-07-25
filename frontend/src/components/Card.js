@@ -11,7 +11,7 @@ import RoastDetails from './RoastDetails';
 function Card({ roast }) {
     const [isActive, setIsActive] = useState(false);
     const [isFavorite, setIsFavorite] = useState(roast.isFavorite);
-    const { dateRoasted, name, notes} = roast;
+    const { dateRoasted, name, origin, variety, notes } = roast;
 
     const percentLoss = percentLossCalc(roast);
 
@@ -34,7 +34,7 @@ function Card({ roast }) {
     ?  (
         <div className="Card collapsed">
             <div className="roast-details" onClick={expand}>
-                <h3>{name}</h3>
+                <h3>{name ? name : `${origin} ${variety}`}</h3>
                 <p>{dateFormat(dateRoasted, "mm/dd/yyyy")} - {roastCalc(percentLoss)} ({percentLoss}%)</p>
             </div>
             <div className="favorite-container" onClick={handleHeartClick}>
@@ -49,7 +49,7 @@ function Card({ roast }) {
         <div className="full-screen-container">
             <div className="Card expanded">
                 <div className="title-bar">
-                    <h2>{name}</h2>
+                    <h2>{name ? name : `${origin} ${variety}`}</h2>
                     <div className="favorite-container" onClick={handleHeartClick}>
                         { isFavorite 
                             ? <HeartSolid />

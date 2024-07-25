@@ -9,8 +9,10 @@ import { useTimer } from 'use-timer'
 import Status from './Status'
 import NoSleep from 'nosleep.js';
 import FinishRoastForm from './FinishRoastForm'
+import RoastDetails from '../components/RoastDetails'
+import roasts from '../mocks/roasts'
 
-function Roaster({ roast, setRoast, close }) {
+function Roaster({ currentRoast, close }) {
   const [progress, setProgress] = useState("start-roast-form");
   // start-roast-form > roast-active > finish-roast-form > roast-complete
   const [roastStep, setRoastStep] = useState(1);
@@ -48,10 +50,8 @@ function Roaster({ roast, setRoast, close }) {
     if (roastStep === 3) key = 'openedLidSeconds'
     if (roastStep === 4) key = 'heatOffSeconds'
     if (roastStep === 5) key = 'dumpedSeconds'
-    setRoast(prev => ({
-      ...prev,
-      [key]: time
-    }))
+    currentRoast.value[key] = time
+    console.log(currentRoast.value);
   }
   
   // Control steps during the roasting
@@ -70,13 +70,28 @@ function Roaster({ roast, setRoast, close }) {
     logTime();
     nextStep();
   }
+
+  const handleSave = () => {
+    const found = roasts.find((item, index) => {
+      if (item.id === currentRoast.value.id) {
+          return index
+      }
+    })   
+    if (found) {
+        roasts[found] = currentRoast.value;
+    } else {
+        roasts.push(currentRoast.value);
+    }
+    console.log(roasts);
+    nextProgress();
+  }
   
   // Trigger rerender of the Home Page component
   useEffect(() => {
     if (progress === 'inactive') {
       close();
     }
-  })
+  }, [close, progress])
 
   return progress === 'start-roast-form' ?
     (
@@ -87,7 +102,7 @@ function Roaster({ roast, setRoast, close }) {
         <hr />
         <div className="roaster-body">
           <p className="no-bottom-margin">Weigh your unroasted beans, and add the rest of the information for your home roast.</p>
-          <NewRoastForm roast={roast} setRoast={setRoast} />
+          <NewRoastForm currentRoast={currentRoast} />
           <h3>Heat your roaster</h3>
           <p>Don't start your roast until your beans are ready to go in the roaster!</p>
         </div>
@@ -105,7 +120,7 @@ function Roaster({ roast, setRoast, close }) {
         </div>
         <hr />
         <div className="roaster-body">
-          <Status roast={roast} step={roastStep} />
+          <Status currentRoast={currentRoast} step={roastStep} />
         </div>
         <hr/>
         <div className="roast-button">
@@ -133,7 +148,7 @@ function Roaster({ roast, setRoast, close }) {
         <div className="roaster-body">
           <h2>Almost done!</h2>
           <p>Let your coffee cool until it has mostly stopped smoking, then weigh your beans and log the weight below.</p>
-          <FinishRoastForm roast={roast} setRoast={setRoast} />
+          <FinishRoastForm currentRoast={currentRoast} />
         </div>
         <Button 
           text="See Roast Details"
@@ -145,16 +160,26 @@ function Roaster({ roast, setRoast, close }) {
     : progress === 'roast-complete' ?
     (
       <div className="Card roast">
-        <Button 
-          text="Discard"
-          color="var(--light-blue"
-          callback={nextProgress}
-        />
-        <Button 
-          text="Save"
-          color="var(--light-blue"
-          callback={nextProgress}
-        />
+        <div className="roaster-header">
+          <h2>Roast Complete!</h2>
+        </div>
+        <hr/>
+        <div className="roaster-body">
+          <h2>{currentRoast.value.name ? currentRoast.value.name : `${currentRoast.value.origin} ${currentRoast.value.variety}`}</h2>
+        </div>
+        <RoastDetails roast={currentRoast.value} />
+        <div className="finish-buttons">
+          <Button 
+            text="Discard"
+            color="var(--light-blue"
+            callback={nextProgress}
+          />
+          <Button 
+            text="Save"
+            color="var(--blue)"
+            callback={handleSave}
+          />
+        </div>
       </div>
     )
     : <></>

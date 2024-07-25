@@ -1,5 +1,6 @@
 .Card.roast {
   background-color: var(--blue);
+  margin-bottom: 10px;
 }
 
 .Card.roast .roaster-header {
@@ -227,4 +228,12 @@ label, .input-field:focus ~ .input-label {
 
 .FinishRoastForm {
   margin-bottom: 116px;
+}
+
+.finish-buttons .Button {
+  margin-top: 10px;
+}
+
+.finish-buttons .Button:last-child {
+  border: 3px solid var(--white);
 }

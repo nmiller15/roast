@@ -28,15 +28,15 @@ class Roast {
     }
 
     saveRoast() {
-        let i
         const found = roasts.find((roast, index) => {
             if (roast.id === this.id) {
-                i = index
                 return index
             }
         })   
         if (found) {
             roasts[found] = this;
+        } else {
+            roasts.shift(this);
         }
     }
 }

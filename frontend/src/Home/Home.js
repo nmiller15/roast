@@ -8,22 +8,25 @@ import '../components/Card.css'
 import { useState } from 'react'
 import Roaster from '../Roaster/Roaster'
 import { Roast } from '../mocks/roasts';
+import { currentRoast } from '../signals'
 
 function Home() {
   const [roastActive, setRoastActive] = useState(false);
-  const [newRoast, setNewRoast] = useState();
+  // const [newRoast, setNewRoast] = useState();
 
   const handleNewRoast = () => {
-    setRoastActive(true)
-    setNewRoast(new Roast(Date.now()));
+    setRoastActive(true);
+    currentRoast.value = new Roast(Date.now());
   }
+
+  console.log(currentRoast.value);
 
   const closeRoaster = () => {
     console.log('closing')
     setRoastActive(false);
   }
 
-  return !roastActive 
+  return !roastActive
   ? 
    (
     <div className="Home Page">
@@ -38,15 +41,19 @@ function Home() {
           text="Start a new roast"
           callback={handleNewRoast} />
         <h3>Previous Roast</h3>
-        <CardList roasts={[roasts[0]]} />
+        <CardList roasts={[roasts[roasts.length - 1]]} />
       </div>
     </div>
    )
   :
    (
-    <div className="Page">
+    <div className="Page roaster-active">
       <h1>Roast coffee</h1>
-      <Roaster roast={newRoast} setRoast={setNewRoast} close={closeRoaster}/>
+      <Roaster currentRoast={currentRoast} close={closeRoaster}/>
+      <div className="lower-section">
+        <h3>Previous Roast</h3>
+        <CardList roasts={[roasts[roasts.length - 1]]} />
+      </div>
     </div>
    )
 
