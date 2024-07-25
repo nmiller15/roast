@@ -2,7 +2,7 @@ import React from "react";
 import './Roaster.css'
 import FinishRoastForm from "./FinishRoastForm";
 import Button from "../components/Button";
-import { Timer } from "iconoir-react";
+import Timer from './Timer'
 export function FinishRoast({
   time,
   currentRoast,
