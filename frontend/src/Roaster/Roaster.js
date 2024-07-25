@@ -8,12 +8,13 @@ import { RoastCoffee } from './RoastCoffee';
 import { StartRoast } from './StartRoast';
 import { useTimer } from 'use-timer'
 import NoSleep from 'nosleep.js';
-import { saveRoast, logTime } from '../controllers/homeController'
+import { saveRoast, logTime } from '../controllers/roasterController'
 
 function Roaster({ currentRoast, close, progress, setProgress }) {
   const [roastStep, setRoastStep] = useState(1);
-  const { time, start, pause, reset, status} = useTimer();
+  const { time, start, pause } = useTimer();
   const noSleep = new NoSleep();
+
   
   // Move through the different roaster states
   const nextProgress = () => {
