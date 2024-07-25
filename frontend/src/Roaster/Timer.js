@@ -1,6 +1,5 @@
 import React from 'react'
 import './Roaster';
-import { useState, useEffect } from 'react';
 import timeString from '../util/timeString'
 
 function Timer({ time }) {
