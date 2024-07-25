@@ -8,7 +8,7 @@ import { RoastCoffee } from './RoastCoffee';
 import { StartRoast } from './StartRoast';
 import { useTimer } from 'use-timer'
 import NoSleep from 'nosleep.js';
-import { saveRoast } from '../controllers/homeController'
+import { saveRoast, logTime } from '../controllers/homeController'
 
 function Roaster({ currentRoast, close, progress, setProgress }) {
   const [roastStep, setRoastStep] = useState(1);
@@ -27,17 +27,6 @@ function Roaster({ currentRoast, close, progress, setProgress }) {
       ? 'inactive'
       : 'inactive')
   }
-
-  // Log the roast timing
-  const logTime = () => {
-    let key = '';
-    if (roastStep === 1) key = 'firstCrackSeconds'
-    if (roastStep === 2) key = 'tempRiseSeconds'
-    if (roastStep === 3) key = 'openedLidSeconds'
-    if (roastStep === 4) key = 'heatOffSeconds'
-    if (roastStep === 5) key = 'dumpedSeconds'
-    currentRoast.value[key] = time
-  }
   
   // Control steps during the roasting
   const nextStep = () => {
@@ -52,7 +41,7 @@ function Roaster({ currentRoast, close, progress, setProgress }) {
 
   // Moves to next step and logs the time
   const handleRecordStep = () => {
-    logTime();
+    logTime(roastStep, time);
     nextStep();
   }
 

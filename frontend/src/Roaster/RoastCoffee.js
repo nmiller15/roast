@@ -1,6 +1,6 @@
 import React from "react";
 import Status from "./Status";
-import { Timer } from "iconoir-react";
+import Timer from './Timer'
 import Button from "../components/Button";
 import './Roaster.css'
 export function RoastCoffee({
