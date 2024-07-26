@@ -1,18 +1,35 @@
 import roasts from "../mocks/roasts";
 import { currentRoast } from "../signals";
 
-export const saveRoast = (roast) => {
-  const found = roasts.find((item, index) => {
+export const getRoast = (id) => {
+  const foundIndex = roasts.find((item, index) => {
     if (item.id === currentRoast.value.id) {
-        return index
+      return index
     }
-  })   
+  })
+  if (foundIndex) return roasts[foundIndex]
+}
+
+export const saveRoast = () => {
+  const found = getRoast(currentRoast.value.id)  
   if (found) {
       roasts[found] = currentRoast.value;
   } else {
       roasts.push(currentRoast.value);
   }
   return roasts[roasts.length - 1]
+}
+
+export const updateRoast = (roast) => {
+  const foundIndex = roasts.find((item, index) => {
+    if (item.id === roast.id) {
+      return index
+    }
+  })
+  if (foundIndex) {
+    roasts[foundIndex] = roast;
+  }
+  return roast;
 }
 
 export const logTime = (roastStep, time) => {
