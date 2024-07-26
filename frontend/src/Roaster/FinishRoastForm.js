@@ -10,12 +10,12 @@ function FinishRoastForm({ currentRoast }) {
     <div className="FinishRoastForm">
       <form method="post" action="" name="initialForm">
         <div className="input-wrapper">
-          <input type="text" name="lowestTempF" id="lowest-temp" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
-          <label class="input-label" for="lowest-temp">Lowest temperature (°F)</label>
+          <input type="text" name="lowestTempF" id="lowest-temp" className="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
+          <label class="input-label" htmlFor="lowest-temp">Lowest temperature (°F)</label>
         </div>
         <div className="input-wrapper">
-          <input type="text" name="endingWeightG" id="end-weight" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
-          <label class="input-label" for="variety">Final weight (g)</label>
+          <input type="text" name="endingWeightG" id="end-weight" className="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
+          <label class="input-label" htmlFor="variety">Final weight (g)</label>
         </div>
       </form>
     </div>

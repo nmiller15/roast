@@ -9,24 +9,24 @@ function NewRoastForm({currentRoast}) {
   return (
     <form method="post" action="" name="initialForm">
       <div className="input-wrapper">
-        <input type="text" name="origin" id="origin" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
-        <label class="input-label" for="origin">Origin</label>
+        <input type="text" name="origin" id="origin" className="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
+        <label className="input-label" htmlFor="origin">Origin</label>
       </div>
       <div className="input-wrapper">
-        <input type="text" name="variety" id="variety" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
-        <label class="input-label" for="variety">Variety</label>
+        <input type="text" name="variety" id="variety" className="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
+        <label className="input-label" htmlFor="variety">Variety</label>
       </div>
       <div className="input-wrapper">
-        <input type="text" name="name" id="name" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
-        <label class="input-label" for="name">Roast Name (Optional)</label>
+        <input type="text" name="name" id="name" className="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
+        <label className="input-label" htmlFor="name">Roast Name (Optional)</label>
       </div>
       <div className="input-wrapper">
-        <input type="text" name="startingWeightG" id="starting-weight" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
-        <label class="input-label" for="starting-weight">Starting Weight (g)</label>
+        <input type="text" name="startingWeightG" id="starting-weight" className="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
+        <label className="input-label" htmlFor="starting-weight">Starting Weight (g)</label>
       </div>
       <div className="inline-input-wrapper">
-        <label class="input-label" for="stove-heat-level">Stove Heat Level</label>
-        <select name="heatLevel" id="stove-heat-level" class="input-field" onChange={handleChange}>
+        <label className="input-label" htmlFor="stove-heat-level">Stove Heat Level</label>
+        <select name="heatLevel" id="stove-heat-level" className="input-field" onChange={handleChange}>
           <option id='lo' value="Low">Low</option>
           <option id='medlo' value="MedLow">Medium Low</option>
           <option id='med' value="Med">Medium</option>
@@ -35,8 +35,8 @@ function NewRoastForm({currentRoast}) {
         </select><br/>
       </div>
       <div className="input-wrapper">
-        <input type="text" name="startTempF" id="starting-temp" class="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
-        <label class="input-label" for="starting-temp">Starting Temperature (°F)</label>
+        <input type="text" name="startTempF" id="starting-temp" className="input-field" placeholder="placeholder" onChange={handleChange}/><br/>
+        <label className="input-label" htmlFor="starting-temp">Starting Temperature (°F)</label>
       </div>
 
     </form>

@@ -10,8 +10,7 @@ import { useTimer } from 'use-timer'
 import NoSleep from 'nosleep.js';
 import { saveRoast, logTime } from '../controllers/roasterController'
 
-function Roaster({ currentRoast, close, progress, setProgress }) {
-  const [roastStep, setRoastStep] = useState(1);
+function Roaster({ currentRoast, close, progress, setProgress, roastStep, setRoastStep }) {
   const { time, start, pause } = useTimer();
   const noSleep = useMemo(() => new NoSleep(), []);
 
