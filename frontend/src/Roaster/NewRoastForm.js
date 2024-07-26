@@ -4,7 +4,6 @@ function NewRoastForm({currentRoast}) {
   
   const handleChange = (e) => {
     currentRoast.value[e.target.name] = e.target.value
-    console.log(currentRoast.value[e.target.name])
   }
   
   return (
