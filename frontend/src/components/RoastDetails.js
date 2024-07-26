@@ -45,15 +45,18 @@ function RoastDetails({ roast }) {
       <div className="roast-details-expanded">
         <h3>Roast Details</h3>
         <table>
+          <tbody>
             <tr>
             <td class="label">Starting weight:</td> 
             <td class="value left">{startingOz}oz</td>
             <td class="label right">Roasted weight:</td>
             <td class="value">{roastedOz}oz</td>
             </tr>
+          </tbody>
         </table>
         <hr/>
         <table>
+          <tbody>
             <tr>
                 <td class="label">% weight lost:</td>
                 <td class="value left">{percentLoss}%</td>
@@ -78,13 +81,16 @@ function RoastDetails({ roast }) {
                 <td class="label right">Heat off:</td>
                 <td class="value right">{heatOff}</td>
             </tr>
+          </tbody>
         </table>
         <hr/>
         <table class="summary">
+          <tbody>
             <tr>
                 <td class="label final">Total roasting time:</td>
                 <td class="value final">{dumped}</td>
             </tr>
+          </tbody>
         </table>
       </div>
     </div>

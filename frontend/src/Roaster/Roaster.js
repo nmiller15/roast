@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useState, useEffect } from 'react'
 import './Roaster.css'
 import '../components/Card.css'
@@ -13,7 +13,7 @@ import { saveRoast, logTime } from '../controllers/roasterController'
 function Roaster({ currentRoast, close, progress, setProgress }) {
   const [roastStep, setRoastStep] = useState(1);
   const { time, start, pause } = useTimer();
-  const noSleep = new NoSleep();
+  const noSleep = useMemo(() => new NoSleep(), []);
 
   
   // Move through the different roaster states
@@ -53,14 +53,14 @@ function Roaster({ currentRoast, close, progress, setProgress }) {
   
   // Trigger rerender of the Home Page component
   useEffect(() => {
-    if (progress === 'start-roast-form') {
+    if (progress === 'roast-active') {
       start();
       noSleep.enable();
     }
     if (progress === 'inactive') {
       close();
     }
-  }, [close, progress, noSleep, start])
+  }, [close, progress, start, noSleep])
 
 
   return progress === 'start-roast-form' ? <StartRoast currentRoast={currentRoast} nextProgress={nextProgress}  /> 

@@ -27,11 +27,11 @@ function NewRoastForm({currentRoast}) {
       <div className="inline-input-wrapper">
         <label class="input-label" for="stove-heat-level">Stove Heat Level</label>
         <select name="heatLevel" id="stove-heat-level" class="input-field" onChange={handleChange}>
-          <option value="Low">Low</option>
-          <option value="MedLow" key="">Medium Low</option>
-          <option value="Med" key="">Medium</option>
-          <option value="MedHi" key="">Medium High</option>
-          <option value="Hi" key="">High</option>
+          <option id='lo' value="Low">Low</option>
+          <option id='medlo' value="MedLow">Medium Low</option>
+          <option id='med' value="Med">Medium</option>
+          <option id='medhi' value="MedHi">Medium High</option>
+          <option id='hi' value="Hi">High</option>
         </select><br/>
       </div>
       <div className="input-wrapper">

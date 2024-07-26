@@ -82,9 +82,7 @@ function Card({ roast }) {
                         </div>
                         <div className="notes-field">
                             {/* <p>{notes}</p> */}
-                            <textarea name="notes" cols="30" rows="10" onChange={handleNotesChange}>
-                                {notes}
-                            </textarea>
+                            <textarea name="notes" cols="30" rows="10" onChange={handleNotesChange} defaultValue={notes} />
                         </div>
                     </div>
                 </div>

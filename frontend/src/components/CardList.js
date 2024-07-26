@@ -8,15 +8,15 @@ function CardList({ roasts, favoritesList = false }) {
   return !favoritesList ? (
     <div className="CardList">
         {roasts.map((roast) => {
-            return <Card roast={roast} />
+            return <Card key={roast.id} roast={roast} />
         })}
     </div>
   ) :
   (
     <div className="CardList">
-      {roasts.map((roast) => {
+      {roasts.map((roast, index) => {
         if (roast.isFavorite) {
-          return <Card roast={roast} />
+          return <Card key={roast.id} roast={roast} />
         } else {
           return <></>;
         }
