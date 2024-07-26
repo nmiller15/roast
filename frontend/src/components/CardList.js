@@ -4,12 +4,23 @@ import Card from './Card'
 
 
 
-function CardList({ roasts }) {
-  return (
+function CardList({ roasts, favoritesList = false }) {
+  return !favoritesList ? (
     <div className="CardList">
         {roasts.map((roast) => {
             return <Card roast={roast} />
         })}
+    </div>
+  ) :
+  (
+    <div className="CardList">
+      {roasts.map((roast) => {
+        if (roast.isFavorite) {
+          return <Card roast={roast} />
+        } else {
+          return <></>;
+        }
+      })}
     </div>
   )
 }

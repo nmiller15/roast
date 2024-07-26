@@ -22,7 +22,7 @@ function Account() {
       </div>
       <div className="roasts">
         <h2>Favorite Roasts</h2>
-        <CardList roasts={roasts} />
+        <CardList roasts={roasts} favoritesList={true}/>
       </div>
     </div>
 
