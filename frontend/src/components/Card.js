@@ -11,7 +11,6 @@ import './Card.css';
 import RoastDetails from './RoastDetails';
 import { updateRoast } from '../controllers/roasterController';
 import useDebounce from 'react-debounced';
-import timeString from '../util/timeString';
 
 function Card({ roast, roastStep, roastProgress }) {
     const [isActive, setIsActive] = useState(false);
@@ -79,7 +78,7 @@ function Card({ roast, roastStep, roastProgress }) {
                     <div className="notes">
                         <div className="notes-head">
                             <h3>Notes</h3>
-                            <PlusCircle />
+                            {/* <PlusCircle /> */}
                         </div>
                         <div className="notes-field">
                             {/* <p>{notes}</p> */}
