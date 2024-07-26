@@ -10,12 +10,8 @@ import Rating from './Rating';
 function RoastDetails({ roast }) {
 
   const {
-    id,
     dateRoasted,
     rating,
-    origin,
-    variety,
-    name,
     startingWeightG,
     endingWeightG,
     heatLevel,
@@ -26,7 +22,6 @@ function RoastDetails({ roast }) {
     openedLidSeconds,
     heatOffSeconds,
     dumpedSeconds,
-    notes
   } = roast;
 
   console.log(roast);
