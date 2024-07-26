@@ -6,6 +6,7 @@ import roastString from '../util/roastString';
 import gToOz from '../util/gToOz';
 import dateFormat from 'dateformat';
 import Rating from './Rating';
+import { currentRoast } from '../signals';
 
 function RoastDetails({ roast }) {
 
@@ -23,8 +24,6 @@ function RoastDetails({ roast }) {
     heatOffSeconds,
     dumpedSeconds,
   } = roast;
-
-  console.log(roast);
 
   const percentLoss = percentLossCalc(roast);
   const firstCrack = timeString(firstCrackSeconds);

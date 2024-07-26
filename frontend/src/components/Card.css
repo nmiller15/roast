@@ -49,6 +49,7 @@
     background-color: #202020;
     opacity: 1;
     transition: opacity .5s ease-in;
+    z-index: 2;
   }
   
   .expanded {
@@ -172,4 +173,22 @@
     font-size: 11.52px;
     margin: 0;
     padding: 0;
+  }
+
+  .notes-field textarea {
+    font-size: 11.52px;
+    color: var(--white);
+    font-family: inherit;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    width: 100%;
+    resize: none;
+  }
+
+  .notes-field textarea:focus-visible {
+    outline: none;
+    border: none;
   }

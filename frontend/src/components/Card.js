@@ -1,18 +1,21 @@
 import React from 'react'
 import { useState } from 'react';
 import { Heart, HeartSolid, PlusCircle } from 'iconoir-react';
-import dateFormat, { masks } from "dateformat";
+import dateFormat from "dateformat";
 import Button from './Button';
 import roastCalc from '../util/roastCalc';
 import percentLossCalc from '../util/percentLossCalc';
 import './Card.css';
 import RoastDetails from './RoastDetails';
 import { updateRoast } from '../controllers/roasterController';
+import { currentRoast } from '../signals';
+import useDebounce from 'react-debounced';
 
 function Card({ roast }) {
     const [isActive, setIsActive] = useState(false);
     const [isFavorite, setIsFavorite] = useState(roast.isFavorite);
     const { id, dateRoasted, name, origin, variety, notes } = roast;
+    const debounce = useDebounce()
 
     const percentLoss = percentLossCalc(roast);
 
@@ -23,12 +26,22 @@ function Card({ roast }) {
         updateRoast(roast);
     }
 
+    // Update the notes of the roast
+    const handleNotesChange = (e) => {
+        currentRoast.value.notes = e.target.value;
+        debounce(() => {
+            updateRoast(currentRoast);
+        })
+    }
+
     // Change the active state of a card
     const expand = (e) => {
+        currentRoast.value = roast;
         setIsActive(true);
     }
 
     const collapse = (e) => {
+        currentRoast.value = null;
         setIsActive(false);
     }
 
@@ -68,7 +81,10 @@ function Card({ roast }) {
                             <PlusCircle />
                         </div>
                         <div className="notes-field">
-                            <p>{notes}</p>
+                            {/* <p>{notes}</p> */}
+                            <textarea name="notes" cols="30" rows="10" onChange={handleNotesChange}>
+                                {notes}
+                            </textarea>
                         </div>
                     </div>
                 </div>

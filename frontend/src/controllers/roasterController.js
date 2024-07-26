@@ -2,11 +2,7 @@ import roasts from "../mocks/roasts";
 import { currentRoast } from "../signals";
 
 export const getRoast = (id) => {
-  const foundIndex = roasts.find((item, index) => {
-    if (item.id === currentRoast.value.id) {
-      return index
-    }
-  })
+  const foundIndex = roasts.findIndex((item) => item.id === id)
   if (foundIndex) return roasts[foundIndex]
 }
 
@@ -21,11 +17,7 @@ export const saveRoast = () => {
 }
 
 export const updateRoast = (roast) => {
-  const foundIndex = roasts.find((item, index) => {
-    if (item.id === roast.id) {
-      return index
-    }
-  })
+  const foundIndex = roasts.findIndex((item) => item.id === roast.id)
   if (foundIndex) {
     roasts[foundIndex] = roast;
   }

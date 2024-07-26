@@ -2,17 +2,26 @@ import React from 'react'
 import { Star, StarSolid } from 'iconoir-react';
 import { useState } from 'react';
 import './Rating.css';
+import useDebounce from 'react-debounced';
+import { updateRoast } from '../controllers/roasterController';
+import { currentRoast } from '../signals';
 
 
 function Rating({ rating }) {
-  const [currentRating, setCurrentRating] = useState(rating);
+  const [currentRating, setCurrentRating] = useState(currentRoast.value.rating);
+  const debounce = useDebounce();
 
   const handleClick = (n) => {
-    if (currentRating === n) {
-        setCurrentRating(0);
-    } else {
+    if (n !== currentRating) {
+        currentRoast.value.rating = n
         setCurrentRating(n);
+    } else {
+        currentRoast.value.rating = 0;
+        setCurrentRating(0);
     }
+    debounce(() => {
+        updateRoast(currentRoast.value);
+    })
   }
 
   const handle1 = () => handleClick(1);

@@ -1,12 +1,10 @@
 import React from 'react'
 import './Account.css'
 import { Settings, ProfileCircle } from 'iconoir-react'
-import Card from '../components/Card';
 import CardList from '../components/CardList';
 import roasts from '../mocks/roasts';
 
 // TODO: UI Differences for login states
-// TODO: Utility function to get the favorite roasts entry point.
 
 function Account() {
   return (
