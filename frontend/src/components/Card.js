@@ -7,18 +7,20 @@ import roastCalc from '../util/roastCalc';
 import percentLossCalc from '../util/percentLossCalc';
 import './Card.css';
 import RoastDetails from './RoastDetails';
+import { updateRoast } from '../controllers/roasterController';
 
 function Card({ roast }) {
     const [isActive, setIsActive] = useState(false);
     const [isFavorite, setIsFavorite] = useState(roast.isFavorite);
-    const { dateRoasted, name, origin, variety, notes } = roast;
+    const { id, dateRoasted, name, origin, variety, notes } = roast;
 
     const percentLoss = percentLossCalc(roast);
 
     // Change the state of isFavorite
     const handleHeartClick = (e) => {
         setIsFavorite(!isFavorite);
-        //TODO: Add a logic function to add this card to the favorites list.
+        roast.isFavorite = !roast.isFavorite;
+        updateRoast(roast);
     }
 
     // Change the active state of a card
