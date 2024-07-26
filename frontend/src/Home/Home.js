@@ -49,8 +49,14 @@ function Home() {
       <h1>Roast coffee</h1>
       <Roaster currentRoast={currentRoast} close={closeRoaster} progress={roastProgress} setProgress={setRoastProgress}/>
       <div className="lower-section">
-        <h3>Previous Roast</h3>
-        <CardList roasts={[roasts[roasts.length - 1]]} />
+      { roastProgress === 'roast-active' || roastProgress === 'finish-roast-form' ?
+        <>
+          <h3>Previous Roast</h3>
+          <CardList roasts={[roasts[roasts.length - 1]]} />
+        </>
+        :
+        <></>
+      } 
       </div>
     </div>
    )

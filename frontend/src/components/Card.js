@@ -8,13 +8,13 @@ import percentLossCalc from '../util/percentLossCalc';
 import './Card.css';
 import RoastDetails from './RoastDetails';
 import { updateRoast } from '../controllers/roasterController';
-import { currentRoast } from '../signals';
 import useDebounce from 'react-debounced';
 
 function Card({ roast }) {
     const [isActive, setIsActive] = useState(false);
     const [isFavorite, setIsFavorite] = useState(roast.isFavorite);
-    const { id, dateRoasted, name, origin, variety, notes } = roast;
+    const [cardRoast, setCardRoast] = useState(roast);
+    const { id, dateRoasted, name, origin, variety, notes } = cardRoast;
     const debounce = useDebounce()
 
     const percentLoss = percentLossCalc(roast);
@@ -22,26 +22,32 @@ function Card({ roast }) {
     // Change the state of isFavorite
     const handleHeartClick = (e) => {
         setIsFavorite(!isFavorite);
-        roast.isFavorite = !roast.isFavorite;
-        updateRoast(roast);
+        setCardRoast({
+            ...cardRoast,
+            isFavorite: !cardRoast.isFavorite
+        })
+        debounce(() => {
+            updateRoast(cardRoast);
+        })
     }
 
     // Update the notes of the roast
     const handleNotesChange = (e) => {
-        currentRoast.value.notes = e.target.value;
+        setCardRoast({
+            ...cardRoast,
+            notes: e.target.value
+        })
         debounce(() => {
-            updateRoast(currentRoast);
+            updateRoast(cardRoast);
         })
     }
 
     // Change the active state of a card
     const expand = (e) => {
-        currentRoast.value = roast;
         setIsActive(true);
     }
 
     const collapse = (e) => {
-        currentRoast.value = null;
         setIsActive(false);
     }
 
