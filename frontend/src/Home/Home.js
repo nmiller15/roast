@@ -13,10 +13,12 @@ import { currentRoast } from '../signals'
 function Home() {
   const [roastActive, setRoastActive] = useState(false);
   const [roastProgress, setRoastProgress] = useState();
+  const [roastStep, setRoastStep] = useState(null);
 
   const handleNewRoast = () => {
     setRoastActive(true);
     setRoastProgress("start-roast-form")
+    setRoastStep(1);
     currentRoast.value = new Roast(Date.now());
   }
 
@@ -47,12 +49,12 @@ function Home() {
    (
     <div className="Page roaster-active">
       <h1>Roast coffee</h1>
-      <Roaster currentRoast={currentRoast} close={closeRoaster} progress={roastProgress} setProgress={setRoastProgress}/>
+      <Roaster currentRoast={currentRoast} close={closeRoaster} progress={roastProgress} setProgress={setRoastProgress} roastStep={roastStep} setRoastStep={setRoastStep}/>
       <div className="lower-section">
       { roastProgress === 'roast-active' || roastProgress === 'finish-roast-form' ?
         <>
           <h3>Previous Roast</h3>
-          <CardList roasts={[roasts[roasts.length - 1]]} />
+          <CardList roasts={[roasts[roasts.length - 1]]} roastStep={roastStep} roastProgress={roastProgress}/>
         </>
         :
         <></>

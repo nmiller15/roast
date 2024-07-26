@@ -1,7 +1,9 @@
+import { PrevRoastTime } from './PrevRoastTime';
 import React from 'react'
 import { useState } from 'react';
-import { Heart, HeartSolid, PlusCircle } from 'iconoir-react';
+import { PlusCircle } from 'iconoir-react';
 import dateFormat from "dateformat";
+import Favorite from './Favorite';
 import Button from './Button';
 import roastCalc from '../util/roastCalc';
 import percentLossCalc from '../util/percentLossCalc';
@@ -9,8 +11,9 @@ import './Card.css';
 import RoastDetails from './RoastDetails';
 import { updateRoast } from '../controllers/roasterController';
 import useDebounce from 'react-debounced';
+import timeString from '../util/timeString';
 
-function Card({ roast }) {
+function Card({ roast, roastStep, roastProgress }) {
     const [isActive, setIsActive] = useState(false);
     const [isFavorite, setIsFavorite] = useState(roast.isFavorite);
     const [cardRoast, setCardRoast] = useState(roast);
@@ -58,12 +61,9 @@ function Card({ roast }) {
                 <h3>{name ? name : `${origin} ${variety}`}</h3>
                 <p>{dateFormat(dateRoasted, "mm/dd/yyyy")} - {roastCalc(percentLoss)} ({percentLoss}%)</p>
             </div>
-            <div className="favorite-container" onClick={handleHeartClick}>
-                { isFavorite 
-                   ? <HeartSolid/>
-                   : <Heart /> 
-                }
-            </div>
+            { !roastStep || roastProgress === 'finish-roast-form' ? <Favorite handleHeartClick={handleHeartClick} isFavorite={isFavorite}  /> 
+                         : <PrevRoastTime cardRoast={cardRoast} roastStep={roastStep} />
+            }
         </div>
     )
     : (
@@ -71,12 +71,7 @@ function Card({ roast }) {
             <div className="Card expanded">
                 <div className="title-bar">
                     <h2>{name ? name : `${origin} ${variety}`}</h2>
-                    <div className="favorite-container" onClick={handleHeartClick}>
-                        { isFavorite 
-                            ? <HeartSolid />
-                            : <Heart />
-                        }
-                    </div>
+                    <Favorite handleHeartClick={handleHeartClick} isFavorite={isFavorite}  />
                 </div>
                 <hr/>
                 <div className="expanded-body">
