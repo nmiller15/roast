@@ -31,3 +31,14 @@ svg {
 .roasts {
     margin-top: 50px;
 }
+
+.logged-out {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 70vh;
+}
+
+.logged-out .buttons .Button {
+    margin: 14.4px;
+}

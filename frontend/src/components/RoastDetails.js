@@ -47,10 +47,10 @@ function RoastDetails({ roast }) {
         <table>
           <tbody>
             <tr>
-            <td class="label">Starting weight:</td> 
-            <td class="value left">{startingOz}oz</td>
-            <td class="label right">Roasted weight:</td>
-            <td class="value">{roastedOz}oz</td>
+            <td className="label">Starting weight:</td> 
+            <td className="value left">{startingOz}oz</td>
+            <td className="label right">Roasted weight:</td>
+            <td className="value">{roastedOz}oz</td>
             </tr>
           </tbody>
         </table>
@@ -58,37 +58,37 @@ function RoastDetails({ roast }) {
         <table>
           <tbody>
             <tr>
-                <td class="label">% weight lost:</td>
-                <td class="value left">{percentLoss}%</td>
-                <td class="label right">First crack:</td>
-                <td class="value right">{firstCrack}</td>
+                <td className="label">% weight lost:</td>
+                <td className="value left">{percentLoss}%</td>
+                <td className="label right">First crack:</td>
+                <td className="value right">{firstCrack}</td>
             </tr>
             <tr>
-                <td class="label">Heat level:</td>
-                <td class="value left">{heatLevel}</td>
-                <td class="label right">Temp Rise:</td>
-                <td class="value right">{tempRise}</td>
+                <td className="label">Heat level:</td>
+                <td className="value left">{heatLevel}</td>
+                <td className="label right">Temp Rise:</td>
+                <td className="value right">{tempRise}</td>
             </tr>
             <tr>
-                <td class="label">Max temp:</td>
-                <td class="value left">{startTempF}°F</td>
-                <td class="label right">Opened lid:</td>
-                <td class="value right">{openedLid}</td>
+                <td className="label">Max temp:</td>
+                <td className="value left">{startTempF}°F</td>
+                <td className="label right">Opened lid:</td>
+                <td className="value right">{openedLid}</td>
             </tr>
             <tr>
-                <td class="label">Min temp:</td>
-                <td class="value left">{lowestTempF}°F</td>
-                <td class="label right">Heat off:</td>
-                <td class="value right">{heatOff}</td>
+                <td className="label">Min temp:</td>
+                <td className="value left">{lowestTempF}°F</td>
+                <td className="label right">Heat off:</td>
+                <td className="value right">{heatOff}</td>
             </tr>
           </tbody>
         </table>
         <hr/>
-        <table class="summary">
+        <table className="summary">
           <tbody>
             <tr>
-                <td class="label final">Total roasting time:</td>
-                <td class="value final">{dumped}</td>
+                <td className="label final">Total roasting time:</td>
+                <td className="value final">{dumped}</td>
             </tr>
           </tbody>
         </table>
