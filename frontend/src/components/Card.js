@@ -23,16 +23,20 @@ function Card({ roast, roastStep, roastProgress }) {
 
     // Change the state of isFavorite
     const handleHeartClick = (e) => {
-        setIsFavorite(!isFavorite);
-        setCardRoast({
+        const updatedIsFavorite = !isFavorite;
+        const updatedCardRoast = {
             ...cardRoast,
-            isFavorite: !cardRoast.isFavorite
-        })
+            isFavorite: updatedIsFavorite
+        };
+    
+        setCardRoast(updatedCardRoast);
+        setIsFavorite(updatedIsFavorite);
+    
         debounce(() => {
-            updateRoast(cardRoast);
-        })
+            updateRoast(updatedCardRoast);
+        });
     }
-
+    
     // Update the notes of the roast
     const handleNotesChange = (e) => {
         setCardRoast({
