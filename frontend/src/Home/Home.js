@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Home.css'
 import { HeatingSquare } from 'iconoir-react'
 import Button from '../components/Button'
@@ -9,11 +9,13 @@ import { useState } from 'react'
 import Roaster from '../Roaster/Roaster'
 import { Roast } from '../mocks/roasts';
 import { currentRoast } from '../signals'
+import { AuthContext } from '../controllers/authContext'
 
 function Home() {
   const [roastActive, setRoastActive] = useState(false);
   const [roastProgress, setRoastProgress] = useState();
   const [roastStep, setRoastStep] = useState(null);
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   const handleNewRoast = () => {
     setRoastActive(true);
@@ -40,8 +42,12 @@ function Home() {
           color="var(--blue)" 
           text="Start a new roast"
           callback={handleNewRoast} />
-        <h3>Previous Roast</h3>
-        <CardList roasts={[roasts[roasts.length - 1]]} />
+        { isLoggedIn ? 
+          <>
+            <h3>Previous Roast</h3>
+            <CardList roasts={[user.roasts[roasts.length - 1]]} />
+          </> : <></>
+      }
       </div>
     </div>
    )
@@ -51,14 +57,17 @@ function Home() {
       <h1>Roast coffee</h1>
       <Roaster currentRoast={currentRoast} close={closeRoaster} progress={roastProgress} setProgress={setRoastProgress} roastStep={roastStep} setRoastStep={setRoastStep}/>
       <div className="lower-section">
-      { roastProgress === 'roast-active' || roastProgress === 'finish-roast-form' ?
-        <>
-          <h3>Previous Roast</h3>
-          <CardList roasts={[roasts[roasts.length - 1]]} roastStep={roastStep} roastProgress={roastProgress}/>
-        </>
-        :
-        <></>
-      } 
+      { isLoggedIn ? <>
+        { roastProgress === 'roast-active' || roastProgress === 'finish-roast-form' ?
+          <>
+            <h3>Previous Roast</h3>
+            <CardList roasts={[user.roasts[roasts.length - 1]]} roastStep={roastStep} roastProgress={roastProgress}/>
+          </>
+          :
+          <></>
+        }</>
+        :<></>
+    }
       </div>
     </div>
    )

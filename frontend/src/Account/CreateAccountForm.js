@@ -1,5 +1,6 @@
 import React from "react";
-import '../Roaster/Roaster.css'
+import '../components/Card.css'
+import './Account.css'
 import Button from "../components/Button";
 
 export function CreateAccountForm({ userInfo, setUserInfo, handleSubmit }) {
@@ -12,7 +13,8 @@ export function CreateAccountForm({ userInfo, setUserInfo, handleSubmit }) {
   }
 
   return (
-    <div className="CreateAccountForm">
+    <div className="CreateAccountForm Card">
+      <h2>Create An Account</h2>
       <div className="input-wrapper">
         <input type="text" name="firstName" id="first-name" className="input-field" placeholder="placeholder" onChange={handleChange} /><br />
         <label className="input-label" htmlFor="firstName">First Name</label>
@@ -37,7 +39,7 @@ export function CreateAccountForm({ userInfo, setUserInfo, handleSubmit }) {
         <input type="password" name="repass" id="repass" className="input-field" placeholder="placeholder" onChange={handleChange} /><br />
         <label className="input-label" htmlFor="repass">Re-Type Password</label>
       </div>
-      <Button color='var(--light-orange' text='Create An Account' callback={handleSubmit} />
+      <Button color='var(--light-orange' text='Submit' callback={handleSubmit} />
     </div>
   );
 }

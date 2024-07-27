@@ -20,6 +20,13 @@ const nolan = new User({
   roasts: roasts
 })
 
-const users = [ nolan ]
+const users = [ {
+  firstName: 'Nolan',
+  lastName: 'Miller',
+  email: 'mail@nolanmiller.me',
+  username: 'nolanmiller',
+  password: 'midnightcodermonkey',
+  roasts: roasts
+}]
 
 export default users

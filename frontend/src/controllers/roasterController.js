@@ -1,25 +1,27 @@
+import { useContext } from "react";
 import roasts from "../mocks/roasts";
 import { currentRoast } from "../signals";
+import { AuthContext } from "./authContext";
 
-export const getRoast = (id) => {
-  const foundIndex = roasts.findIndex((item) => item.id === id)
-  if (foundIndex) return roasts[foundIndex]
+export const getRoast = (id, user) => {
+  const foundIndex = user.roasts.findIndex((item) => item.id === id)
+  if (foundIndex) return user.roasts[foundIndex]
 }
 
-export const saveRoast = () => {
+export const saveRoast = (user) => {
   const found = getRoast(currentRoast.value.id)  
   if (found) {
-      roasts[found] = currentRoast.value;
+      user.roasts[found] = currentRoast.value;
   } else {
-      roasts.push(currentRoast.value);
+      user.roasts.push(currentRoast.value);
   }
-  return roasts[roasts.length - 1]
+  return user.roasts[roasts.length - 1]
 }
 
-export const updateRoast = (roast) => {
-  const foundIndex = roasts.findIndex((item) => item.id === roast.id)
+export const updateRoast = (roast, user) => {
+  const foundIndex = user.roasts.findIndex((item) => item.id === roast.id)
   if (foundIndex) {
-    roasts[foundIndex] = roast;
+    user.roasts[foundIndex] = roast;
   }
   return roast;
 }

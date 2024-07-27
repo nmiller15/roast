@@ -40,7 +40,7 @@ function Account() {
         <Settings onClick={() => logout()} />
       </div>
       {
-        isLoggedIn && !loginForm ? <AccountLoggedIn roasts={roasts}  />
+        isLoggedIn && !loginForm ? <AccountLoggedIn roasts={roasts} />
         : loginForm === 'create' ? <CreateAccountForm userInfo={userInfo} setUserInfo={setUserInfo} handleSubmit={handleSubmit}/>
         : loginForm === 'login' ? <LoginForm userInfo={userInfo} setUserInfo={setUserInfo} handleSubmit={handleSubmit}/>
         : <LoggedOut handleSelectLogin={handleSelectLogin} handleSelectCreate={handleSelectCreate} />

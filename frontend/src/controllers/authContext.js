@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
       if (!userRecord) return;
       if (userRecord.password === userData.password) {
         setIsLoggedIn(true);
-        setUser(userData);
+        setUser(userRecord);
       }
     };
 

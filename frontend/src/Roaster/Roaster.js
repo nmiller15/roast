@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { useState, useEffect } from 'react'
 import './Roaster.css'
 import '../components/Card.css'
@@ -9,10 +9,12 @@ import { StartRoast } from './StartRoast';
 import { useTimer } from 'use-timer'
 import NoSleep from 'nosleep.js';
 import { saveRoast, logTime } from '../controllers/roasterController'
+import { AuthContext } from '../controllers/authContext';
 
 function Roaster({ currentRoast, close, progress, setProgress, roastStep, setRoastStep }) {
   const { time, start, pause } = useTimer();
   const noSleep = useMemo(() => new NoSleep(), []);
+  const { user } = useContext(AuthContext)
 
   
   // Move through the different roaster states
@@ -46,7 +48,7 @@ function Roaster({ currentRoast, close, progress, setProgress, roastStep, setRoa
   }
 
   const handleSave = () => {
-    saveRoast();
+    if (user) saveRoast(user);
     nextProgress();
   }
   

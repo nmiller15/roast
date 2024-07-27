@@ -42,3 +42,30 @@ svg {
 .logged-out .buttons .Button {
     margin: 14.4px;
 }
+
+.Card.CreateAccountForm .Button {
+    margin-top: 30px;
+}
+
+.Card.CreateAccountForm h2 {
+    font-size: 22.5px;
+    margin-bottom: 15px;
+}
+
+.Card.CreateAccountForm .input-wrapper {
+    margin-top: 20px;
+}
+
+.Card.LoginForm {
+    background-color: var(--blue);
+    margin-top: 125px;
+    padding-top: 5px;
+}
+
+.Card.LoginForm .input-wrapper {
+    margin-top: 10px;
+}
+
+.Card.LoginForm .Button {
+    margin-top: 25px;
+}
