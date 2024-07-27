@@ -3,7 +3,6 @@ import './Home.css'
 import { HeatingSquare } from 'iconoir-react'
 import Button from '../components/Button'
 import CardList from '../components/CardList'
-import roasts from '../mocks/roasts'
 import '../components/Card.css'
 import { useState } from 'react'
 import Roaster from '../Roaster/Roaster'
@@ -42,10 +41,10 @@ function Home() {
           color="var(--blue)" 
           text="Start a new roast"
           callback={handleNewRoast} />
-        { isLoggedIn ? 
+        { isLoggedIn || user.roasts ? 
           <>
             <h3>Previous Roast</h3>
-            <CardList roasts={[user.roasts[roasts.length - 1]]} />
+            <CardList roasts={[user.roasts[user.roasts.length - 1]]} />
           </> : <></>
       }
       </div>
@@ -57,11 +56,11 @@ function Home() {
       <h1>Roast coffee</h1>
       <Roaster currentRoast={currentRoast} close={closeRoaster} progress={roastProgress} setProgress={setRoastProgress} roastStep={roastStep} setRoastStep={setRoastStep}/>
       <div className="lower-section">
-      { isLoggedIn ? <>
+      { isLoggedIn || user.roasts ? <>
         { roastProgress === 'roast-active' || roastProgress === 'finish-roast-form' ?
           <>
             <h3>Previous Roast</h3>
-            <CardList roasts={[user.roasts[roasts.length - 1]]} roastStep={roastStep} roastProgress={roastProgress}/>
+            <CardList roasts={[user.roasts[user.roasts.length - 1]]} roastStep={roastStep} roastProgress={roastProgress}/>
           </>
           :
           <></>

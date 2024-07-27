@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Star, StarSolid } from 'iconoir-react';
 import { useState } from 'react';
 import './Rating.css';
 import useDebounce from 'react-debounced';
 import { updateRoast } from '../controllers/roasterController';
 import { currentRoast } from '../signals';
+import { AuthContext } from '../controllers/authContext';
 
 
 function Rating({ rating }) {
   const [currentRating, setCurrentRating] = useState(currentRoast.value.rating);
+  const { user } = useContext(AuthContext);
   const debounce = useDebounce();
 
   const handleClick = (n) => {
@@ -20,7 +22,7 @@ function Rating({ rating }) {
         setCurrentRating(0);
     }
     debounce(() => {
-        updateRoast(currentRoast.value);
+        updateRoast(currentRoast.value, user);
     })
   }
 

@@ -9,12 +9,11 @@ export const getRoast = (id, user) => {
 }
 
 export const saveRoast = (user) => {
-  const found = getRoast(currentRoast.value.id, user)  
-  if (found) {
-      user.roasts[found] = currentRoast.value;
-  } else {
-      user.roasts.push(currentRoast.value);
+  const newRoast = {
+    ...currentRoast.value,
+    id: user.roasts.length
   }
+  user.roasts.push(newRoast);
   return user.roasts[roasts.length - 1]
 }
 

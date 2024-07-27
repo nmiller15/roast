@@ -9,7 +9,7 @@ function Library() {
   return (
     <div className="Library Page">
         <h1>Library</h1>
-        { isLoggedIn ? <CardList roasts={user.roasts} /> 
+        { isLoggedIn || user.roasts ? <CardList roasts={user.roasts} /> 
           : <p>When you have roasts, they will appear here.</p>
         }
     </div>

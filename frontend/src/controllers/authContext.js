@@ -8,7 +8,7 @@ const AuthContext = createContext();
 // Create a provider component
 const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({ roasts: [] });
 
     const login = (userData) => {
       const userRecord = users.find((user) => user.username === userData.username);
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
 
     const logout = () => {
         setIsLoggedIn(false);
-        setUser(null);
+        setUser({ roasts: [] });
     };
 
     return (
