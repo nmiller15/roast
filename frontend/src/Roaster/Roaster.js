@@ -48,6 +48,7 @@ function Roaster({ currentRoast, close, progress, setProgress, roastStep, setRoa
   }
 
   const handleSave = () => {
+    console.log(user);
     if (user) saveRoast(user);
     nextProgress();
   }

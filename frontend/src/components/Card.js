@@ -1,5 +1,5 @@
 import { PrevRoastTime } from './PrevRoastTime';
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react';
 import { PlusCircle } from 'iconoir-react';
 import dateFormat from "dateformat";
@@ -11,12 +11,14 @@ import './Card.css';
 import RoastDetails from './RoastDetails';
 import { updateRoast } from '../controllers/roasterController';
 import useDebounce from 'react-debounced';
+import { AuthContext } from '../controllers/authContext';
 
 function Card({ roast, roastStep, roastProgress }) {
     const [isActive, setIsActive] = useState(false);
     const [isFavorite, setIsFavorite] = useState(roast.isFavorite);
     const [cardRoast, setCardRoast] = useState(roast);
     const { id, dateRoasted, name, origin, variety, notes } = cardRoast;
+    const { user } = useContext(AuthContext);
     const debounce = useDebounce()
 
     const percentLoss = percentLossCalc(roast);
@@ -33,7 +35,7 @@ function Card({ roast, roastStep, roastProgress }) {
         setIsFavorite(updatedIsFavorite);
     
         debounce(() => {
-            updateRoast(updatedCardRoast);
+            updateRoast(updatedCardRoast, user);
         });
     }
     
@@ -44,7 +46,7 @@ function Card({ roast, roastStep, roastProgress }) {
             notes: e.target.value
         })
         debounce(() => {
-            updateRoast(cardRoast);
+            updateRoast(cardRoast, user);
         })
     }
 

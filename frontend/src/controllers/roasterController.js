@@ -9,7 +9,7 @@ export const getRoast = (id, user) => {
 }
 
 export const saveRoast = (user) => {
-  const found = getRoast(currentRoast.value.id)  
+  const found = getRoast(currentRoast.value.id, user)  
   if (found) {
       user.roasts[found] = currentRoast.value;
   } else {
