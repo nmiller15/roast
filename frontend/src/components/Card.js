@@ -1,7 +1,6 @@
 import { PrevRoastTime } from './PrevRoastTime';
 import React, { useContext } from 'react'
 import { useState } from 'react';
-import { PlusCircle } from 'iconoir-react';
 import dateFormat from "dateformat";
 import Favorite from './Favorite';
 import Button from './Button';
@@ -13,7 +12,7 @@ import { updateRoast } from '../controllers/roasterController';
 import useDebounce from 'react-debounced';
 import { AuthContext } from '../controllers/authContext';
 
-function Card({ roast, roastStep, roastProgress }) {
+function Card ({ roast, roastStep, roastProgress }) {
     const [isActive, setIsActive] = useState(false);
     const [isFavorite, setIsFavorite] = useState(roast.isFavorite);
     const [cardRoast, setCardRoast] = useState(roast);
@@ -25,17 +24,20 @@ function Card({ roast, roastStep, roastProgress }) {
 
     // Change the state of isFavorite
     const handleHeartClick = (e) => {
-        const updatedIsFavorite = !isFavorite;
-        const updatedCardRoast = {
-            ...cardRoast,
-            isFavorite: updatedIsFavorite
-        };
-    
-        setCardRoast(updatedCardRoast);
-        setIsFavorite(updatedIsFavorite);
-    
-        debounce(() => {
-            updateRoast(updatedCardRoast, user);
+        setIsFavorite(prevIsFavorite => {
+            const updatedIsFavorite = !prevIsFavorite;
+            
+            setCardRoast(prevCardRoast => ({
+                ...prevCardRoast,
+                isFavorite: updatedIsFavorite
+            }));
+            
+            // Use debounce with useCallback to ensure the function identity remains stable
+            debounce(() => {
+                updateRoast({ ...cardRoast, isFavorite: updatedIsFavorite }, user);
+            })
+            
+            return updatedIsFavorite;
         });
     }
     

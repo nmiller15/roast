@@ -8,7 +8,10 @@ function CardList({ roasts, favoritesList = false, roastStep, roastProgress }) {
   return !favoritesList ? (
     <div className="CardList">
         {roasts.map((roast) => {
-            return <Card key={roast.id} roast={roast} roastStep={roastStep} roastProgress={roastProgress} />
+            if (roast) {
+              return <Card key={roast.id} roast={roast} roastStep={roastStep} roastProgress={roastProgress} />
+            }
+            return null;
         })}
     </div>
   ) :

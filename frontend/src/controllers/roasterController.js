@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import roasts from "../mocks/roasts";
 import { currentRoast } from "../signals";
-import { AuthContext } from "./authContext";
 
 export const getRoast = (id, user) => {
   const foundIndex = user.roasts.findIndex((item) => item.id === id)
