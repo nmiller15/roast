@@ -19,8 +19,10 @@ export const saveRoast = (user) => {
 
 export const updateRoast = (roast, user) => {
   const foundIndex = user.roasts.findIndex((item) => item.id === roast.id)
-  if (foundIndex) {
+  console.log(roast);
+  if (foundIndex || foundIndex === 0) {
     user.roasts[foundIndex] = roast;
+    console.log(user.roasts[foundIndex]);
   }
   return roast;
 }
