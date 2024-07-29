@@ -1,3 +1,9 @@
+-- Create the database (this command needs to be executed outside this script, e.g., via psql command line)
+-- CREATE DATABASE roast;
+
+-- Connect to the new database (this command is specific to psql command line, not part of the SQL script)
+-- \c roast
+
 -- Create the "roasts" table
 CREATE TABLE "roasts" (
   "id" SERIAL PRIMARY KEY,
