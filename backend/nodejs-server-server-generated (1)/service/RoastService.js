@@ -5,7 +5,7 @@
  * Create a new roast
  * Must include a valid roast object
  *
- * body Roast  (optional)
+ * body Roast 
  * returns Roast
  **/
 exports.addRoast = function(body) {
@@ -185,7 +185,7 @@ exports.roastsRoastIdGET = function(roastId) {
  * Update roast by id
  * Can only be performed by a logged in user who owns the identified roast
  *
- * body Roast  (optional)
+ * body Roast 
  * roastId Integer An integer that matches an id of a roast
  * returns Roast
  **/

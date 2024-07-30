@@ -95,7 +95,7 @@ exports.getUserByUsername = function(username) {
 /**
  * Logs an existing user into the system
  *
- * body User_login_body  (optional)
+ * body User_login_body 
  * returns String
  **/
 exports.loginUser = function(body) {
@@ -155,7 +155,7 @@ exports.removeUserByUsername = function(username) {
  * Update user profile by username
  * Must be logged in as the user or admin to update user.
  *
- * body User  (optional)
+ * body User 
  * username String Username of the owner of a list of roasts
  * returns User
  **/
