@@ -62,33 +62,6 @@ paths:
                 $ref: '#/components/schemas/User'          
         '400':
           $ref: '#/components/responses/Invalid'
-  /user/{username}:
-    get:
-      tags:
-        - user
-      summary: Get user profile by username
-      description: Must be logged in as the user to recieve the user.
-      operationId: getUserByUsername
-      parameters:
-        - $ref: '#/components/parameters/usernameParam'
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          $ref: '#/components/responses/Invalid'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '404':
-          $ref: '#/components/responses/NotFound'
-      security:
-        - bearerAuth:
-          - write:user
-          - read:user
-    
   /user/login:
     post:
       tags:
@@ -138,6 +111,89 @@ paths:
       responses:
         default:
           description: Successful operation
+  /user/{username}:
+    get:
+      tags:
+        - user
+      summary: Get user profile by username
+      description: Must be logged in as the user to recieve the user.
+      operationId: getUserByUsername
+      parameters:
+        - $ref: '#/components/parameters/usernameParam'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/Invalid'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+        - bearerAuth:
+          - write:user
+          - read:user
+    put:
+      tags:
+        - user
+      summary: Update user profile by username
+      description: Must be logged in as the user or admin to update user.
+      operationId: updateUserByUsername
+      parameters:
+        - $ref: '#/components/parameters/usernameParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/Invalid'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+        - bearerAuth:
+          - write:user
+          - read:user
+          - delete:user
+    delete:
+      tags:
+        - user
+      summary: Remove user profile by username
+      description: Must be logged in as the user or admin to delete user.
+      operationId: removeUserByUsername
+      parameters:
+        - $ref: '#/components/parameters/usernameParam'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/Invalid'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+        - bearerAuth:
+          - write:user
+          - read:user
+          - delete:user
   /roasts:
     post:
       tags:
@@ -398,4 +454,3 @@ components:
       description: A resource with that identifier was not found.
     Invalid:
       description: Your request parameters or body are invalid.
-    
