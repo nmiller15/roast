@@ -81,6 +81,7 @@ paths:
                 password:
                   type: string
                   example: '12345'
+        required: true
       responses:
         '200':
           description: Successful operation
@@ -150,6 +151,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
+        required: true
       responses:
         '200':
           description: Successful operation
@@ -207,6 +209,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Roast'
+        required: true
       responses:
         '201': 
           description: Successful operation
@@ -270,6 +273,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Roast'
+        required: true
       responses:
         '201':
           description: Successful operation
