@@ -22,6 +22,24 @@ tags:
     description: Access to roasts
 paths:
   /user:
+    get:
+      tags: 
+        - user
+      summary: Get all users
+      description: Can only be accessed by admin users
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersArray'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      security: 
+        - bearerAuth:
+          - read:user
     post:
       tags:
         - user
@@ -43,7 +61,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'          
         '400':
-          description: Invalid user schema
+          $ref: '#/components/responses/Invalid'
   /user/{username}:
     get:
       tags:
@@ -52,25 +70,20 @@ paths:
       description: Must be logged in as the user to recieve the user.
       operationId: getUserByUsername
       parameters:
-        - name: username
-          in: path
-          description: Username of the user info to return
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/usernameParam'
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
         '400':
-          description: Invalid username
+          $ref: '#/components/responses/Invalid'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '404':
-          description: Pet not found
+          $ref: '#/components/responses/NotFound'
       security:
         - bearerAuth:
           - write:user
@@ -97,10 +110,10 @@ paths:
                   example: '12345'
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           headers:
             X-Expires-After:
-              description: date in UTC when token expires
+              description: Date in UTC when token expires
               schema:
                 type: string
                 format: date-time
@@ -113,7 +126,7 @@ paths:
               schema:
                 type: string
         '400':
-          description: Invalid username/password supplied
+          $ref: '#/components/responses/Invalid'
   /user/logout:
     get:
       tags:
@@ -124,9 +137,138 @@ paths:
       parameters: []
       responses:
         default:
-          description: successful operation
-          
+          description: Successful operation
+  /roasts:
+    post:
+      tags:
+        - roast
+      summary: Create a new roast
+      description: Must include a valid roast object
+      operationId: addRoast
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roast'
+      responses:
+        '201': 
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roast'
+  /roasts/{username}:
+    get:
+      tags:
+        - roast
+      summary: Get list of roasts by username
+      description: Must include a valid username
+      operationId: getUserRoasts
+      parameters:
+        - $ref: '#/components/parameters/usernameParam'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoastArray'
+        '400':
+          $ref: '#/components/responses/Invalid'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /roasts/{roastId}:
+    get:
+      tags:
+        - roast
+      summary: Get roast by id
+      description: Must include a valid roast id
+      parameters:
+        - $ref: '#/components/parameters/roastIdParam'
+      responses:
+        '200': 
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Roast"
+        '400':
+          $ref: '#/components/responses/Invalid'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags: 
+        - roast
+      summary: Update roast by id
+      description: Can only be performed by a logged in user who owns the identified roast
+      parameters:
+        - name: roastId
+          in: path
+          description: An integer that matches an id of a roast
+          required: true
+          schema: 
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roast'
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roast'
+        '400':
+          $ref: '#/components/responses/Invalid'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+        - bearerAuth:
+          - write:roast
+    delete:
+      tags:
+        - roast
+      summary: Delete roast by id
+      description: Can only be performed by a logged in user who owns the identified roast
+      parameters:
+        - $ref: '#/components/parameters/roastIdParam'
+      responses:
+        '200':
+          description: Successful operation; return deleted roast
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roast'
+        '400':
+          $ref: '#/components/responses/Invalid'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+        - bearerAuth:
+          - delete:roast
 components:
+  parameters:
+    usernameParam:
+      name: username
+      in: path
+      description: Username of the owner of a list of roasts
+      required: true
+      schema:
+        type: string
+    roastIdParam:
+      name: roastId
+      in: path
+      description: An integer that matches an id of a roast
+      required: true
+      schema:
+        type: integer
   schemas:
     Roast:
       type: object
@@ -208,6 +350,10 @@ components:
         notes:
           type: string
           example: Doesn't taste as good as last time... I wonder if the weather is making the beans roast faster now that it's warmer
+    RoastArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Roast'
     User:
       type: object
       properties:
@@ -236,7 +382,10 @@ components:
           enum:
             - user
             - admin
-  
+    UsersArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
   securitySchemes:
     bearerAuth:
       type: http
@@ -247,3 +396,6 @@ components:
       description: Access token is missing or invalid.
     NotFound:
       description: A resource with that identifier was not found.
+    Invalid:
+      description: Your request parameters or body are invalid.
+    
