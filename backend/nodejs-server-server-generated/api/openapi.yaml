@@ -1,0 +1,557 @@
+openapi: 3.0.3
+info:
+  title: Roast - Know Your Home Roasts
+  description: |-
+    This is the API for for the new home coffee roasting app, Roast. An example of the front end is available at the link below! This page will be updated with more information as the application goes live.
+
+    Some useful links:
+    - [Roast: Frontend Deployment](https://knowyourhomeroast.netlify.app)
+    - [The Github Repository](https://github.com/nmiller15/roast)
+  contact:
+    email: mail@nolanmiller.me
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: None yet
+tags:
+- name: user
+  description: Operations for your user
+- name: roast
+  description: Access to roasts
+paths:
+  /user:
+    get:
+      tags:
+      - user
+      summary: Get all users
+      description: Can only be accessed by admin users
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersArray'
+        "401":
+          description: Access token is missing or invalid.
+      security:
+      - bearerAuth:
+        - read:user
+      x-swagger-router-controller: User
+    post:
+      tags:
+      - user
+      summary: Create a new user
+      description: Add a new user to the database
+      operationId: createUser
+      requestBody:
+        description: Add a new user to the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Your request parameters or body are invalid.
+      x-swagger-router-controller: User
+  /user/login:
+    post:
+      tags:
+      - user
+      summary: Logs an existing user into the system
+      description: ""
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_login_body'
+      responses:
+        "200":
+          description: Successful operation
+          headers:
+            X-Expires-After:
+              description: Date in UTC when token expires
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: date-time
+            Auth-Token:
+              description: Validation token that provides Bearer Authorization
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: string
+                x-content-type: application/json
+        "400":
+          description: Your request parameters or body are invalid.
+      x-swagger-router-controller: User
+  /user/logout:
+    get:
+      tags:
+      - user
+      summary: Logs out current logged in user session
+      description: ""
+      operationId: logoutUser
+      parameters: []
+      responses:
+        default:
+          description: Successful operation
+      x-swagger-router-controller: User
+  /user/{username}:
+    get:
+      tags:
+      - user
+      summary: Get user profile by username
+      description: Must be logged in as the user to recieve the user.
+      operationId: getUserByUsername
+      parameters:
+      - name: username
+        in: path
+        description: Username of the owner of a list of roasts
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Your request parameters or body are invalid.
+        "401":
+          description: Access token is missing or invalid.
+        "404":
+          description: A resource with that identifier was not found.
+      security:
+      - bearerAuth:
+        - write:user
+        - read:user
+      x-swagger-router-controller: User
+    put:
+      tags:
+      - user
+      summary: Update user profile by username
+      description: Must be logged in as the user or admin to update user.
+      operationId: updateUserByUsername
+      parameters:
+      - name: username
+        in: path
+        description: Username of the owner of a list of roasts
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Your request parameters or body are invalid.
+        "401":
+          description: Access token is missing or invalid.
+        "404":
+          description: A resource with that identifier was not found.
+      security:
+      - bearerAuth:
+        - write:user
+        - read:user
+        - delete:user
+      x-swagger-router-controller: User
+    delete:
+      tags:
+      - user
+      summary: Remove user profile by username
+      description: Must be logged in as the user or admin to delete user.
+      operationId: removeUserByUsername
+      parameters:
+      - name: username
+        in: path
+        description: Username of the owner of a list of roasts
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Your request parameters or body are invalid.
+        "401":
+          description: Access token is missing or invalid.
+        "404":
+          description: A resource with that identifier was not found.
+      security:
+      - bearerAuth:
+        - write:user
+        - read:user
+        - delete:user
+      x-swagger-router-controller: User
+  /roasts:
+    post:
+      tags:
+      - roast
+      summary: Create a new roast
+      description: Must include a valid roast object
+      operationId: addRoast
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roast'
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roast'
+      x-swagger-router-controller: Roast
+  /roasts/{username}:
+    get:
+      tags:
+      - roast
+      summary: Get list of roasts by username
+      description: Must include a valid username
+      operationId: getUserRoasts
+      parameters:
+      - name: username
+        in: path
+        description: Username of the owner of a list of roasts
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoastArray'
+        "400":
+          description: Your request parameters or body are invalid.
+        "404":
+          description: A resource with that identifier was not found.
+      x-swagger-router-controller: Roast
+  /roasts/{roastId}:
+    get:
+      tags:
+      - roast
+      summary: Get roast by id
+      description: Must include a valid roast id
+      operationId: roastsRoastIdGET
+      parameters:
+      - name: roastId
+        in: path
+        description: An integer that matches an id of a roast
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roast'
+        "400":
+          description: Your request parameters or body are invalid.
+        "404":
+          description: A resource with that identifier was not found.
+      x-swagger-router-controller: Roast
+    put:
+      tags:
+      - roast
+      summary: Update roast by id
+      description: Can only be performed by a logged in user who owns the identified
+        roast
+      operationId: roastsRoastIdPUT
+      parameters:
+      - name: roastId
+        in: path
+        description: An integer that matches an id of a roast
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roast'
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roast'
+        "400":
+          description: Your request parameters or body are invalid.
+        "401":
+          description: Access token is missing or invalid.
+        "404":
+          description: A resource with that identifier was not found.
+      security:
+      - bearerAuth:
+        - write:roast
+      x-swagger-router-controller: Roast
+    delete:
+      tags:
+      - roast
+      summary: Delete roast by id
+      description: Can only be performed by a logged in user who owns the identified
+        roast
+      operationId: roastsRoastIdDELETE
+      parameters:
+      - name: roastId
+        in: path
+        description: An integer that matches an id of a roast
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation; return deleted roast
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roast'
+        "400":
+          description: Your request parameters or body are invalid.
+        "401":
+          description: Access token is missing or invalid.
+        "404":
+          description: A resource with that identifier was not found.
+      security:
+      - bearerAuth:
+        - delete:roast
+      x-swagger-router-controller: Roast
+components:
+  schemas:
+    Roast:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        userId:
+          type: integer
+          format: int64
+          example: 198772
+        dateRoasted:
+          type: string
+          format: date-time
+        rating:
+          type: integer
+          format: int64
+          example: 3
+        origin:
+          type: string
+          example: Ethiopian
+        variety:
+          type: string
+          example: Yirgacheffe
+        name:
+          type: string
+          example: Number One
+        startingWeightG:
+          type: integer
+          format: int64
+          example: 228
+        engingWeightG:
+          type: integer
+          format: int64
+          example: 191
+        heatLevel:
+          type: string
+          description: Heat of the stove
+          example: Med
+          enum:
+          - Lo
+          - MedLo
+          - Med
+          - MedHi
+          - Hi
+        startTempF:
+          type: integer
+          format: int64
+          example: 400
+        lowestTempF:
+          type: integer
+          format: int64
+          example: 325
+        firstCrackSeconds:
+          type: integer
+          format: int64
+          example: 140
+        tempRiseSeconds:
+          type: integer
+          format: int64
+          example: 180
+        openedLidSeconds:
+          type: integer
+          format: int64
+          example: 210
+        heatOffSeconds:
+          type: integer
+          format: int64
+          example: 235
+        dumpedSeconds:
+          type: integer
+          format: int64
+          example: 255
+        isFavorite:
+          type: boolean
+          example: false
+        notes:
+          type: string
+          example: Doesn't taste as good as last time... I wonder if the weather is
+            making the beans roast faster now that it's warmer
+      example:
+        notes: Doesn't taste as good as last time... I wonder if the weather is making
+          the beans roast faster now that it's warmer
+        heatLevel: Med
+        origin: Ethiopian
+        lowestTempF: 325
+        rating: 3
+        heatOffSeconds: 235
+        startTempF: 400
+        firstCrackSeconds: 140
+        tempRiseSeconds: 180
+        userId: 198772
+        dateRoasted: 2000-01-23T04:56:07.000+00:00
+        startingWeightG: 228
+        openedLidSeconds: 210
+        engingWeightG: 191
+        variety: Yirgacheffe
+        dumpedSeconds: 255
+        name: Number One
+        id: 10
+        isFavorite: false
+    RoastArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Roast'
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: "12345"
+        permission:
+          type: string
+          example: admin
+          enum:
+          - user
+          - admin
+      example:
+        firstName: John
+        lastName: James
+        password: "12345"
+        permission: admin
+        id: 10
+        email: john@email.com
+        username: theUser
+    UsersArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    user_login_body:
+      type: object
+      properties:
+        username:
+          type: string
+          example: theUser
+        password:
+          type: string
+          example: "12345"
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid.
+    NotFound:
+      description: A resource with that identifier was not found.
+    Invalid:
+      description: Your request parameters or body are invalid.
+  parameters:
+    usernameParam:
+      name: username
+      in: path
+      description: Username of the owner of a list of roasts
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    roastIdParam:
+      name: roastId
+      in: path
+      description: An integer that matches an id of a roast
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
