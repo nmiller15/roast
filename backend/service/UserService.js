@@ -1,6 +1,9 @@
 'use strict';
 const query = require("../database/db");
 const insertStatement = require('../utils/insertStatement');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
 
 /**
  * Create a new user
@@ -9,6 +12,7 @@ const insertStatement = require('../utils/insertStatement');
  * body User Add a new user to the database
  * returns User
  **/
+// TODO: Check this operation!
 exports.createUser = function(body) {
   return new Promise(function(resolve, reject) {
     const { text, values } = insertStatement("users", body);
@@ -27,33 +31,19 @@ exports.createUser = function(body) {
  *
  * returns UsersArray
  **/
+// TODO: Check this operation!
 exports.getAllUsers = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "permission" : "admin",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-}, {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "permission" : "admin",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    query('SELECT * FROM users')
+      .then((response) => {
+        if (response.rows.length === 0) {
+          return reject('No users found.');
+        }
+        resolve(response.rows);
+      })
+      .catch(e => reject(e));
   });
-}
+};
 
 
 /**
@@ -65,21 +55,11 @@ exports.getAllUsers = function() {
  **/
 exports.getUserByUsername = function(username) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "permission" : "admin",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    query('SELECT * FROM users WHERE username = $1', [username])
+      .then((response) => {
+        if (response.rows.length === 0) return reject('No user found.')
+        resolve(response.rows[0])
+      }).catch(e => reject(e));
   });
 }
 
@@ -90,17 +70,29 @@ exports.getUserByUsername = function(username) {
  * body User_login_body 
  * returns String
  **/
+
 exports.loginUser = function(body) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = "";
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    query('SELECT username, password FROM users WHERE username = $1', [body.username])
+      .then((response) => {
+        if (response.rows.length === 0) {
+          return reject('No user found with that username.');
+        }
+        const hashedPassword = response.rows[0].password;
+        return bcrypt.compare(body.password, hashedPassword);
+      })
+      .then((isMatch) => {
+        if (isMatch) {
+          // Generate JWT token
+          const token = jwt.sign({ username: body.username }, JWT_SECRET, { expiresIn: '1h' });
+          resolve({ token });
+        } else {
+          reject('Invalid password.');
+        }
+      })
+      .catch(e => reject(e));
   });
-}
+};
 
 
 /**
@@ -124,21 +116,11 @@ exports.logoutUser = function() {
  **/
 exports.removeUserByUsername = function(username) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "permission" : "admin",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    query('DELETE from users WHERE username = $1', [username])
+      .then((response) => {
+        if (response.rowCount === 0) return reject('Not removed.')
+        resolve(response)
+      })
   });
 }
 
@@ -153,21 +135,12 @@ exports.removeUserByUsername = function(username) {
  **/
 exports.updateUserByUsername = function(body,username) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "permission" : "admin",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    const { text, values } = updateStatement(body, "users", username)
+
+    query(text, values).then((response) => {
+      if (response.rowCount == 0) return reject('No user found with that username')
+      resolve(response.rows[0]);
+    }).catch(e => reject(e))
   });
 }
 
