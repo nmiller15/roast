@@ -35,7 +35,6 @@ exports.addRoast = function(body) {
  * username String Username of the owner of a list of roasts
  * returns RoastArray
  **/
-// TODO: Check this operation!
 exports.getUserRoasts = async function(username) {
   return new Promise((resolve, reject) => {
     db.query('SELECT id FROM users WHERE username = $1;', [username])
