@@ -1,5 +1,5 @@
 'use strict';
-const query = require('../database/db');
+const db = require('../database/db');
 const insertStatement = require('../utils/insertStatement');
 const updateStatement = require('../utils/updateStatement');
 
@@ -16,7 +16,7 @@ exports.addRoast = function(body) {
   return new Promise(function(resolve, reject) {
     const { text, values } = insertStatement('roasts', body);
 
-    query(text, values)
+    db.query(text, values)
       .then(response => {
         if (response.rowCount === 0) {
           return reject('Not added.');
@@ -38,19 +38,22 @@ exports.addRoast = function(body) {
 // TODO: Check this operation!
 exports.getUserRoasts = async function(username) {
   return new Promise((resolve, reject) => {
-    query('SELECT user_id FROM users WHERE username = $1;', [username])
-    .then((response) => {
-        console.log(response);
-        if (!response.rows[0]) return reject('Invalid User');
-        return query('SELECT * FROM roasts WHERE user_id = $1;', [response.rows[0].userId])
-      }).then((roastQueryResponse) => {
+    db.query('SELECT id FROM users WHERE username = $1;', [username])
+      .then((response) => {
+        if (response.rowCount == 0) {
+          reject('User not found.')
+        }
+        const userId = response.rows[0].id;  // use correct column name
+        return db.query('SELECT * FROM roasts WHERE user_id = $1;', [userId]);
+      })
+      .then((roastQueryResponse) => {
         resolve(roastQueryResponse.rows);
-      }).catch((e) => {
-        console.log('error');
-        reject(e);
+      })
+      .catch((error) => {
+        reject(error);
       });
-  })
-}
+  });
+};
 
 
 /**
@@ -63,7 +66,7 @@ exports.getUserRoasts = async function(username) {
 // TODO: Check this operation!
 exports.roastsRoastIdDELETE = function(roastId) {
   return new Promise((resolve, reject) => {
-    query('DELETE FROM roasts WHERE roast_id = $1;', [roastId])
+    db.query('DELETE FROM roasts WHERE roast_id = $1;', [roastId])
       .then((response) => {
         resolve(response);
       }).catch(e => reject(e));
@@ -81,7 +84,7 @@ exports.roastsRoastIdDELETE = function(roastId) {
 // TODO: Check this operation!
 exports.roastsRoastIdGET = function(roastId) {
   return new Promise(function(resolve, reject) {
-    query('SELECT * FROM roasts WHERE roast_id = $1', [roastId])
+    db.query('SELECT * FROM roasts WHERE roast_id = $1', [roastId])
       .then((response) => {
         if (response.rows.length === 0) {
           return reject('No roast found with that ID.');
@@ -103,7 +106,7 @@ exports.roastsRoastIdGET = function(roastId) {
 exports.roastsRoastIdPUT = function(body, roastId) {
   return new Promise(function(resolve, reject) {
     const { text, values } = updateStatement(body, 'roasts', roastId);
-    query(text, values)
+    db.query(text, values)
       .then((response) => {
         if (response.rowCount === 0) {
           return reject('No roast found with that ID.');

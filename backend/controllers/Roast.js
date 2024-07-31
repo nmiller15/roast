@@ -16,10 +16,12 @@ module.exports.addRoast = function addRoast (req, res, next, body) {
 module.exports.getUserRoasts = function getUserRoasts (req, res, next, username) {
   Roast.getUserRoasts(username)
     .then(function (response) {
+      if (!response) utils.writeJson(res, response, 404);
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      // Handle no user found.
+      utils.writeJson(res, response, 404);
     });
 };
 
