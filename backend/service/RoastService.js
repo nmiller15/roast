@@ -14,15 +14,18 @@ const updateStatement = require('../utils/updateStatement');
 // TODO: Check this operation!
 exports.addRoast = function(body) {
   return new Promise(function(resolve, reject) {
-    query(insertStatement(body, 'roasts'))
-      .then((response) => {
-        if (!response) return reject('Not added.');
-        resolve(response);
-      }).catch((e) => {
-        reject(e)
+    const { text, values } = insertStatement('roasts', body);
+
+    query(text, values)
+      .then(response => {
+        if (response.rowCount === 0) {
+          return reject('Not added.');
+        }
+        resolve(response.rows[0]); // Or adjust based on what you want to return
       })
+      .catch(e => reject(e));
   });
-}
+};
 
 
 /**

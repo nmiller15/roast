@@ -1,5 +1,6 @@
 'use strict';
-
+const query = require("../database/db");
+const insertStatement = require('../utils/insertStatement');
 
 /**
  * Create a new user
@@ -10,21 +11,12 @@
  **/
 exports.createUser = function(body) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "permission" : "admin",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    const { text, values } = insertStatement("users", body);
+
+    query( text, values ).then((response) => {
+      if (response.rowCount === 0) return reject('Not added.')
+      resolve(response.rows[0])
+    }).catch(e => reject(e))
   });
 }
 
