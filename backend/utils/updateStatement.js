@@ -18,7 +18,7 @@ export default function updateStatement(obj, table, id) {
   statement = statement.slice(0, -2);
 
   // Determine the correct ID column based on the table
-  const idColumn = table === 'users' ? 'user_id' : table === 'roasts' ? 'roast_id' : '';
+  const idColumn = table === 'users' ? 'username' : table === 'roasts' ? 'roast_id' : '';
 
   // Finalize the statement with the WHERE clause
   statement += ` WHERE ${idColumn} = $${keys.length + 1} RETURNING *;`;
