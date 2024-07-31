@@ -51,10 +51,16 @@ exports.addRoast = function(body) {
  **/
 // TODO: Check this operation!
 exports.getUserRoasts = async function(username) {
-  const userResponse = await query('SELECT user_id FROM users WHERE username = $1', [username]);
-  if (!userResponse) throw new Error('Invalid User');
-  const roasts = await query('SELECT * FROM roasts WHERE user_id = $1', [userResponse[0]]);
-  return roasts; 
+  return new Promise((resolve, reject) => {
+    query('SELECT user_id FROM users WHERE username = $1', [username])
+      .then((response) => {
+        if (!response.rows[0]) return reject('Invalid User');
+        return query('SELECT * FROM roasts WHERE user_id = $1', [response.rows[0].userId])
+      }).then((roastQueryResponse) => {
+        resolve(roastQueryResponse.rows);
+      }).catch((e) => {
+        reject(e);
+      });
 }
 
 
