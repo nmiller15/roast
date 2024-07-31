@@ -4,8 +4,8 @@
   "description": "This is the API for for the new home coffee roasting app, Roast. An example of the front end is available at the link below! This page will be updated with more information as the application goes live.  Some useful links: - [Roast: Frontend Deployment](https://knowyourhomeroast.netlify.app) - [The Github Repository](https://github.com/nmiller15/roast)",
   "main": "index.js",
   "scripts": {
-	"prestart": "npm install",
-	"start": "node index.js"
+    "prestart": "npm install",
+    "start": "node index.js"
   },
   "keywords": [
     "swagger"
@@ -14,7 +14,12 @@
   "private": true,
   "dependencies": {
     "connect": "^3.2.0",
+    "dotenv": "^16.4.5",
     "js-yaml": "^3.3.0",
-    "oas3-tools": "^2.2.3"
+    "oas3-tools": "^2.2.3",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
