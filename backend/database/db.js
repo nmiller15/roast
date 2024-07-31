@@ -11,6 +11,6 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000,
 })
 
-const query = pool.query
-
-module.exports = query;
+module.exports = {
+  query: (text, params) => pool.query(text, params),
+};

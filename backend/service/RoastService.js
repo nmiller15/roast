@@ -39,12 +39,14 @@ exports.addRoast = function(body) {
 exports.getUserRoasts = async function(username) {
   return new Promise((resolve, reject) => {
     query('SELECT user_id FROM users WHERE username = $1;', [username])
-      .then((response) => {
+    .then((response) => {
+        console.log(response);
         if (!response.rows[0]) return reject('Invalid User');
         return query('SELECT * FROM roasts WHERE user_id = $1;', [response.rows[0].userId])
       }).then((roastQueryResponse) => {
         resolve(roastQueryResponse.rows);
       }).catch((e) => {
+        console.log('error');
         reject(e);
       });
   })

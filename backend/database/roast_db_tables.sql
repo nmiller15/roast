@@ -71,7 +71,7 @@ CREATE ROLE g_api;
 GRANT p_db_connect, p_users_write, p_roasts_read_write_delete TO g_api;
 
 -- Create user roles and grant group roles to them
-CREATE ROLE u_api;
+CREATE ROLE u_api WITH LOGIN;
 CREATE ROLE u_admin WITH LOGIN;
 
 GRANT g_api TO u_api;
