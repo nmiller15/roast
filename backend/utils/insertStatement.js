@@ -1,18 +1,22 @@
 import { snakeCase } from "change-case";
 
 export function insertStatement(table, obj) {
-  const keys = Object.keys(obj)
+  const keys = Object.keys(obj);
   const values = Object.values(obj);
 
-  let statement = 'INSERT INTO ' + table + ' ('
-  keys.forEach((key, i) => {
-    const snakeKey = snakeCase(key);
-    statement = i == keys.length - 1 ? statement + key + ') VALUES (' : statement + key + ', '
-  })
-  values.forEach((value, i) => {
-    statement = i == values.length - 1 ? statement + value +');' : statement + value + ', '
-  })
+  let statement = `INSERT INTO ${table} (`;
+  
+  // Add snake_case keys to the statement
+  const keyString = keys.map((key, i) => snakeCase(key)).join(', ');
+  statement += `${keyString}) VALUES (`;
 
-  // console.log(statement);
-  return statement;
+  // Add placeholders for the values
+  const placeholders = keys.map((_, i) => `$${i + 1}`).join(', ');
+  statement += `${placeholders});`;
+
+  // Return the query string and the values array
+  return {
+    text: statement,
+    values: values
+  };
 }
