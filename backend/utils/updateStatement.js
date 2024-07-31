@@ -14,6 +14,6 @@ export default function updateStatement(obj, table, id) {
     statement = statement + snakeCase(key) + ' = ' + values[index] + ' '; 
   })
 
-  statement = statement + 'WHERE ' + table == 'users' ? 'user_id ' : table == 'roasts' ? 'roast_id ' : '' + ' = ' + id + ';'
+  statement = statement + 'WHERE ' + table == 'users' ? 'user_id ' : table == 'roasts' ? 'roast_id ' : '' + ' = ' + id + ' RETURNING *;'
   return statement;
 }
