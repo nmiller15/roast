@@ -1,5 +1,6 @@
 'use strict';
 const query = require('../database/db');
+const insertStatement = require('../utils/insertStatement');
 
 
 /**
@@ -11,33 +12,13 @@ const query = require('../database/db');
  **/
 exports.addRoast = function(body) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "notes" : "Doesn't taste as good as last time... I wonder if the weather is making the beans roast faster now that it's warmer",
-  "heatLevel" : "Med",
-  "origin" : "Ethiopian",
-  "lowestTempF" : 325,
-  "rating" : 3,
-  "heatOffSeconds" : 235,
-  "startTempF" : 400,
-  "firstCrackSeconds" : 140,
-  "tempRiseSeconds" : 180,
-  "userId" : 198772,
-  "dateRoasted" : "2000-01-23T04:56:07.000+00:00",
-  "startingWeightG" : 228,
-  "openedLidSeconds" : 210,
-  "engingWeightG" : 191,
-  "variety" : "Yirgacheffe",
-  "dumpedSeconds" : 255,
-  "name" : "Number One",
-  "id" : 10,
-  "isFavorite" : false
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    query(insertStatement(body, 'roasts'))
+      .then((response) => {
+        if (!response) return reject('Not added.');
+        resolve(response);
+      }).catch((e) => {
+        reject(e)
+      })
   });
 }
 
@@ -61,6 +42,7 @@ exports.getUserRoasts = async function(username) {
       }).catch((e) => {
         reject(e);
       });
+  })
 }
 
 
