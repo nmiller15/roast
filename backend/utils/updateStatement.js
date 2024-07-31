@@ -1,13 +1,9 @@
-/*
-UPDATE roasts
-SET key = value, key1 = value1 ...
-WHERE roast_id = 3
-*/
-import { snakeCase } from "change-case";
 
-export default function updateStatement(obj, table, id) {
-  let keys = Object.keys(obj);
-  let values = Object.values(obj);
+const { snakeCase } = require('change-case-commonjs');
+
+function updateStatement(obj, table, id) {
+  const keys = Object.keys(obj);
+  const values = Object.values(obj);
   let statement = `UPDATE ${table} SET `;
 
   keys.forEach((key, index) => {
@@ -28,3 +24,5 @@ export default function updateStatement(obj, table, id) {
     values: [...values, id]
   };
 }
+
+module.exports = updateStatement

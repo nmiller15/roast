@@ -1,6 +1,6 @@
-import { snakeCase } from "change-case";
+const { snakeCase } = require('change-case-commonjs');
 
-export function insertStatement(table, obj) {
+function insertStatement(table, obj) {
   const keys = Object.keys(obj);
   const values = Object.values(obj);
 
@@ -20,3 +20,5 @@ export function insertStatement(table, obj) {
     values: values
   };
 }
+
+module.exports = insertStatement;

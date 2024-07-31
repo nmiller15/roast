@@ -13,4 +13,4 @@ const pool = new Pool({
 
 const query = pool.query
 
-export default query;
+module.exports = query;
