@@ -37,20 +37,27 @@ exports.addRoast = function(body) {
  **/
 exports.getUserRoasts = async function(username) {
   return new Promise((resolve, reject) => {
-    db.query('SELECT id FROM users WHERE username = $1;', [username])
+    // db.query('SELECT id FROM users WHERE username = $1;', [username])
+    //   .then((response) => {
+    //     if (response.rowCount == 0) {
+    //       reject('User not found.')
+    //     }
+    //     const userId = response.rows[0].id;  // use correct column name
+    //     return db.query('SELECT * FROM roasts WHERE user_id = $1;', [userId]);
+    //   })
+    //   .then((roastQueryResponse) => {
+    //     resolve(roastQueryResponse.rows);
+    //   })
+    //   .catch((error) => {
+    //     reject(error);
+    //   });
+    db.query('SELECT roasts.*, users.username FROM roasts JOIN users ON roasts.user_id = users.id WHERE username = $1;', [username])
       .then((response) => {
         if (response.rowCount == 0) {
-          reject('User not found.')
+          return reject('No roasts found.')
         }
-        const userId = response.rows[0].id;  // use correct column name
-        return db.query('SELECT * FROM roasts WHERE user_id = $1;', [userId]);
-      })
-      .then((roastQueryResponse) => {
-        resolve(roastQueryResponse.rows);
-      })
-      .catch((error) => {
-        reject(error);
-      });
+        resolve(response.rows);
+      }).catch(e => reject(e));
   });
 };
 
