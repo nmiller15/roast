@@ -27,6 +27,7 @@ paths:
       - user
       summary: Get all users
       description: Can only be accessed by admin users
+      x-router-controller: User
       operationId: getAllUsers
       responses:
         "200":
@@ -46,6 +47,7 @@ paths:
       - user
       summary: Create a new user
       description: Add a new user to the database
+      x-router-controller: User
       operationId: createUser
       requestBody:
         description: Add a new user to the database
@@ -71,6 +73,7 @@ paths:
       summary: Logs an existing user into the system
       description: ""
       operationId: loginUser
+      x-router-controller: User
       requestBody:
         content:
           application/json:
@@ -109,6 +112,7 @@ paths:
       summary: Logs out current logged in user session
       description: ""
       operationId: logoutUser
+      x-router-controller: User
       parameters: []
       responses:
         default:
@@ -120,6 +124,7 @@ paths:
       - user
       summary: Get user profile by username
       description: Must be logged in as the user to recieve the user.
+      x-router-controller: User
       operationId: getUserByUsername
       parameters:
       - name: username
@@ -154,6 +159,7 @@ paths:
       summary: Update user profile by username
       description: Must be logged in as the user or admin to update user.
       operationId: updateUserByUsername
+      x-router-controller: User
       parameters:
       - name: username
         in: path
@@ -194,6 +200,7 @@ paths:
       summary: Remove user profile by username
       description: Must be logged in as the user or admin to delete user.
       operationId: removeUserByUsername
+      x-router-controller: User
       parameters:
       - name: username
         in: path
@@ -229,6 +236,7 @@ paths:
       summary: Create a new roast
       description: Must include a valid roast object
       operationId: addRoast
+      x-router-controller: Roast
       parameters: []
       requestBody:
         content:
@@ -250,6 +258,7 @@ paths:
       summary: Get list of roasts by username
       description: Must include a valid username
       operationId: getUserRoasts
+      x-router-controller: Roast
       parameters:
       - in: query
         name: username
@@ -270,7 +279,6 @@ paths:
           description: Your request parameters or body are invalid.
         "404":
           description: A resource with that identifier was not found.
-      x-swagger-router-controller: Roast
   /roasts/{roastId}:
     get:
       tags:
@@ -278,6 +286,7 @@ paths:
       summary: Get roast by id
       description: Must include a valid roast id
       operationId: roastsRoastIdGET
+      x-router-controller: Roast
       parameters:
       - name: roastId
         in: path
@@ -306,6 +315,7 @@ paths:
       description: Can only be performed by a logged in user who owns the identified
         roast
       operationId: roastsRoastIdPUT
+      x-router-controller: Roast
       parameters:
       - name: roastId
         in: path
@@ -345,6 +355,7 @@ paths:
       description: Can only be performed by a logged in user who owns the identified
         roast
       operationId: roastsRoastIdDELETE
+      x-router-controller: Roast
       parameters:
       - name: roastId
         in: path

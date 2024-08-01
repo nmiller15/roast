@@ -1,7 +1,7 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Roast = require('../service/RoastService');
+var Roast = require('../service/RoastService.js');
 
 module.exports.addRoast = function addRoast (req, res, next, body) {
   Roast.addRoast(body)
@@ -13,7 +13,9 @@ module.exports.addRoast = function addRoast (req, res, next, body) {
     });
 };
 
-module.exports.getUserRoasts = function getUserRoasts (req, res, next, username) {
+module.exports.getUserRoasts = function getUserRoasts(req, res, next, username) {
+  res.send({entity: 'test-success'})
+  console.log('hello');
   Roast.getUserRoasts(username)
     .then(function (response) {
       if (!response) utils.writeJson(res, response, 404);

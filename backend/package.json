@@ -13,13 +13,19 @@
   "license": "Unlicense",
   "private": true,
   "dependencies": {
+    "@oas-tools/core": "^3.1.0",
     "change-case": "^5.4.4",
     "change-case-commonjs": "^5.4.4",
     "connect": "^3.2.0",
+    "connect-pg-simple": "^9.0.1",
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "js-yaml": "^3.3.0",
+    "morgan": "^1.10.0",
     "oas3-tools": "^2.2.3",
-    "pg": "^8.12.0"
+    "pg": "^8.12.0",
+    "swagger-tools": "^0.10.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

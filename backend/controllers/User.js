@@ -1,15 +1,19 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var User = require('../service/UserService');
+var User = require('../service/UserService.js');
 
 module.exports.createUser = function createUser (req, res, next, body) {
   User.createUser(body)
     .then(function (response) {
-      utils.writeJson(res, response);
+      // Handle user creation error
+      if (response.name === 'error') throw new Error(response);
+
+      // Log in the user after a successful creation
+      return User.loginUser(body)
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 400);
     });
 };
 
@@ -36,7 +40,7 @@ module.exports.getUserByUsername = function getUserByUsername (req, res, next, u
 module.exports.loginUser = function loginUser (req, res, next, body) {
   User.loginUser(body)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response.response);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
