@@ -14,8 +14,6 @@ module.exports.addRoast = function addRoast (req, res, next, body) {
 };
 
 module.exports.getUserRoasts = function getUserRoasts(req, res, next, username) {
-  res.send({entity: 'test-success'})
-  console.log('hello');
   Roast.getUserRoasts(username)
     .then(function (response) {
       if (!response) utils.writeJson(res, response, 404);
