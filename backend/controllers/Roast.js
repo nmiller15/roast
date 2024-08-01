@@ -41,7 +41,7 @@ module.exports.roastsRoastIdGET = function roastsRoastIdGET (req, res, next, roa
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 404);
     });
 };
 

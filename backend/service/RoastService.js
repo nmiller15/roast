@@ -11,7 +11,6 @@ const updateStatement = require('../utils/updateStatement');
  * body Roast 
  * returns Roast
  **/
-// TODO: Check this operation!
 exports.addRoast = function(body) {
   return new Promise(function(resolve, reject) {
     const { text, values } = insertStatement('roasts', body);
@@ -20,7 +19,6 @@ exports.addRoast = function(body) {
       if (response.rowCount === 0) {
         return reject('Not added.');
       }
-      console.log(response);
       resolve(response.rows[0]); // Or adjust based on what you want to return
     })
     .catch(e => reject(e));
@@ -87,10 +85,9 @@ exports.roastsRoastIdDELETE = function(roastId) {
  * roastId Integer An integer that matches an id of a roast
  * returns Roast
  **/
-// TODO: Check this operation!
 exports.roastsRoastIdGET = function(roastId) {
   return new Promise(function(resolve, reject) {
-    db.query('SELECT * FROM roasts WHERE roast_id = $1', [roastId])
+    db.query('SELECT * FROM roasts WHERE id = $1', [roastId])
       .then((response) => {
         if (response.rows.length === 0) {
           return reject('No roast found with that ID.');
