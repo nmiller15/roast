@@ -12,7 +12,7 @@ function insertStatement(table, obj) {
 
   // Add placeholders for the values
   const placeholders = keys.map((_, i) => `$${i + 1}`).join(', ');
-  statement += `${placeholders});`;
+  statement += `${placeholders}) RETURNING *;`;
 
   // Return the query string and the values array
   return {

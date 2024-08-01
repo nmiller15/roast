@@ -62,13 +62,17 @@ GRANT DELETE ON users TO p_users_delete;
 CREATE ROLE p_roasts_read_write_delete;
 GRANT INSERT, UPDATE, SELECT, DELETE ON roasts TO p_roasts_read_write_delete;
 
+-- Create a role to insert using sequences
+CREATE ROLE p_use_sequences;
+GRANT USAGE, SELECT ON SEQUENCE roasts_id_seq, users_id_seq TO p_use_sequences;
+
 -- Create an admin role and grant all specific roles to it
 CREATE ROLE g_admin;
-GRANT p_db_connect, p_users_read, p_users_write, p_users_update, p_users_delete, p_roasts_read_write_delete TO g_admin;
+GRANT p_db_connect, p_users_read, p_users_write, p_users_update, p_users_delete, p_roasts_read_write_delete, p_use_sequences TO g_admin;
 
 -- Create an API role and grant necessary roles to it
 CREATE ROLE g_api;
-GRANT p_db_connect, p_users_write, p_users_read, p_roasts_read_write_delete TO g_api;
+GRANT p_db_connect, p_users_write, p_users_read, p_roasts_read_write_delete, p_use_sequences TO g_api;
 
 -- Create user roles and grant group roles to them
 CREATE ROLE u_api WITH LOGIN;
