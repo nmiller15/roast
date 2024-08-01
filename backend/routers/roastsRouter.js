@@ -6,11 +6,11 @@ roastsRouter = express.Router();
 
 roastsRouter.get('/test', (req, res) => res.send('test ok'));
 
-roastsRouter.post('/', Roast.addRoast(req, res, next))
-roastsRouter.get('/', Roast.getUserRoasts(req, res, next))
-roastsRouter.delete('/:id', Roast.roastsRoastIdDELETE(req, res, next))
-roastsRouter.get('/:id', Roast.roastsRoastIdGET(req, res, next))
-roastsRouter.put('/:id', Roast.roastsRoastIdPUT(req, res, next))
+roastsRouter.post('/', (req, res, next) => Roast.addRoast(req, res, next))
+roastsRouter.get('/', (req, res, next) => Roast.getUserRoasts(req, res, next))
+roastsRouter.delete('/:id', (req, res, next) => Roast.roastsRoastIdDELETE(req, res, next))
+roastsRouter.get('/:id', (req, res, next) => Roast.roastsRoastIdGET(req, res, next))
+roastsRouter.put('/:id', (req, res, next) => Roast.roastsRoastIdPUT(req, res, next))
 
 
 module.exports.roastsRouter = roastsRouter;
