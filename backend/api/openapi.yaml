@@ -386,7 +386,7 @@ components:
           example: 198772
         dateRoasted:
           type: string
-          format: date-time
+          format: date
         rating:
           type: integer
           format: int64
