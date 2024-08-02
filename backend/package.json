@@ -18,6 +18,7 @@
     "change-case-commonjs": "^5.4.4",
     "connect": "^3.2.0",
     "connect-pg-simple": "^9.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",

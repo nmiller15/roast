@@ -88,7 +88,7 @@ exports.getUserByUsername = function(username) {
 
 exports.loginUser = function(body) {
   return new Promise(function(resolve, reject) {
-    db.query('SELECT username, password FROM users WHERE username = $1', [body.username])
+    db.query('SELECT * FROM users WHERE username = $1', [body.username])
     .then((response) => {
       if (response.rowCount === 0) {
         return reject('No user found with that username.');
@@ -101,7 +101,7 @@ exports.loginUser = function(body) {
       if (isMatch) {
         // Generate JWT token
         const token = jwt.sign({ username: body.username }, JWT_SECRET, { expiresIn: '24h' });
-        resolve({token, response: body.response});
+        resolve({token, user: body.response.rows[0]});
       } else {
         reject('Invalid password.');
       }
@@ -109,18 +109,6 @@ exports.loginUser = function(body) {
     .catch(e => reject(e));
   });
 };
-
-
-/**
- * Logs out current logged in user session
- *
- * no response value expected for this operation
- **/
-exports.logoutUser = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
 
 
 /**
@@ -160,3 +148,21 @@ exports.updateUserByUsername = function(body,username) {
   });
 }
 
+/**
+ * Checks session and username for a match to provide authentication to a resource
+ *
+ * req Object Request of the user making the request
+ * username String username of the owner of a resource
+ * returns Boolean
+ **/
+exports.isAuthenticated = function(req, username) {
+  if (req.session.user.username == username) {
+    const { token } = req.cookies;
+    jwt.verify(token, process.env.JWT_SECRET, {}, (err, info) => {
+      if (err) return new Error(err);
+      return true;
+    })
+  } else {
+    return false
+  }
+}
