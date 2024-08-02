@@ -116,9 +116,10 @@ exports.loginUser = function(body) {
  * Must be logged in as the user or admin to delete user.
  *
  * username String Username of the owner of a list of roasts
+ * isAdmin boolean property of user currently in session
  * returns User
  **/
-exports.removeUserByUsername = function(username) {
+exports.removeUserByUsername = function(username, sessionId) {
   return new Promise(function(resolve, reject) {
     db.query('DELETE from users WHERE username = $1', [username])
       .then((response) => {

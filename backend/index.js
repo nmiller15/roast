@@ -5,8 +5,7 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 const session = require('express-session');
-const pool = require('./database/db');
-const pgSession = require('connect-pg-simple')(session);
+const db = require('./database/db')
 const { usersRouter } = require("./routers/usersRouter");
 const { roastsRouter } = require("./routers/roastsRouter");
 
@@ -22,14 +21,12 @@ app.use(morgan('dev'));
 app.use(cors());
 
 // Enable express-session middleware
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
-    store: new pgSession({
-        pool,
-        createTableIfMissing: true
-    }),
+    store: db.store,
     cookie: {
         secure: process.env.API_ENV === 'DEVELOPMENT' ? false : true,
         maxAge: 1000 * 60 * 60 * 24,

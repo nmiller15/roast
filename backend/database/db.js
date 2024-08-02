@@ -1,5 +1,7 @@
 const Pool = require('pg').Pool;
 require('dotenv').config();
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -11,7 +13,13 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000,
 })
 
+const store = new pgSession({
+  pool,
+  createTableIfMissing: true
+})
+
 module.exports = {
-  pool: pool,
+  store,
+  pool,
   query: (text, params) => pool.query(text, params),
 };
