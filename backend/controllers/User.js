@@ -11,35 +11,36 @@ module.exports.createUser = function createUser (req, res, next, body) {
       if (response.name === 'error') throw new Error(response);
 
       // Log in the user after a successful creation
-      return loginUser(req, res, next, body)
+      return module.exports.loginUser(req, res, next, body)
     })
     .catch(function (response) {
+      console.log(response);
       utils.writeJson(res, response, 400);
     });
 };
 
 module.exports.getAllUsers = function getAllUsers (req, res, next) {
   User.getAllUsers()
+  .then(function (response) {
+    utils.writeJson(res, response);
+  })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+  };
+  
+  module.exports.getUserByUsername = function getUserByUsername (req, res, next, username) {
+    User.getUserByUsername(username)
     .then(function (response) {
       utils.writeJson(res, response);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
     });
-};
-
-module.exports.getUserByUsername = function getUserByUsername (req, res, next, username) {
-  User.getUserByUsername(username)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.loginUser = function loginUser (req, res, next, body) {
-  User.loginUser(body)
+  };
+  
+  module.exports.loginUser = function loginUser (req, res, next, body) {
+    User.loginUser(body)
     .then(function (response) {
       req.session.user = response.user
       res.cookie('token', response.token).json(response.user);
@@ -47,7 +48,8 @@ module.exports.loginUser = function loginUser (req, res, next, body) {
     .catch(function (response) {
       utils.writeJson(res, response);
     });
-};
+  };
+  
 
 module.exports.logoutUser = function logoutUser (req, res, next) {
   const sid = req.sessionID;

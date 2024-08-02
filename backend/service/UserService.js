@@ -14,6 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
  * body User Add a new user to the database
  * returns User
  **/
+// TODO: Check this operation!
 exports.createUser = function(body) {
   return new Promise((resolve, reject) => {
     // Hash the password asynchronously
@@ -25,7 +26,6 @@ exports.createUser = function(body) {
 
       // Generate the SQL insert statement
       const { text, values } = insertStatement("users", body);
-      console.log(body);
 
       // Execute the database query
       db.query(text, values)
@@ -68,6 +68,7 @@ exports.getAllUsers = function() {
  * username String Username of the owner of a list of roasts
  * returns User
  **/
+// TODO: Check this operation!
 exports.getUserByUsername = function(username) {
   return new Promise(function(resolve, reject) {
     db.query('SELECT * FROM users WHERE username = $1', [username])
@@ -85,7 +86,6 @@ exports.getUserByUsername = function(username) {
  * body User_login_body 
  * returns String
  **/
-
 exports.loginUser = function(body) {
   return new Promise(function(resolve, reject) {
     db.query('SELECT * FROM users WHERE username = $1', [body.username])
@@ -138,6 +138,7 @@ exports.removeUserByUsername = function(username, sessionId) {
  * username String Username of the owner of a list of roasts
  * returns User
  **/
+// TODO: Check this operation!
 exports.updateUserByUsername = function(body,username) {
   return new Promise(function(resolve, reject) {
     const { text, values } = updateStatement(body, "users", username)
@@ -156,6 +157,7 @@ exports.updateUserByUsername = function(body,username) {
  * username String username of the owner of a resource
  * returns Boolean
  **/
+// TODO: Check this operation!
 exports.isAuthenticated = function(req, username) {
   if (req.session.user.username == username) {
     const { token } = req.cookies;
