@@ -1,8 +1,9 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
+var objectKeysToCamel = require('../utils/objectKeysToCamel.js');
 var User = require('../service/UserService.js');
-var db = require('../database/db.js')
+var db = require('../database/db.js');
 
 module.exports.createUser = function createUser (req, res, next, body) {
   User.createUser(body)
@@ -42,8 +43,8 @@ module.exports.getAllUsers = function getAllUsers (req, res, next) {
   module.exports.loginUser = function loginUser (req, res, next, body) {
     User.loginUser(body)
     .then(function (response) {
-      req.session.user = response.user
-      res.cookie('token', response.token).json(response.user);
+      req.session.user = objectKeysToCamel(response.user);
+      res.cookie('token', response.token).json(req.session.user);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
@@ -63,12 +64,20 @@ module.exports.logoutUser = function logoutUser (req, res, next) {
 };
 
 module.exports.removeUserByUsername = function removeUserByUsername (req, res, next, username) {
-  User.removeUserByUsername(username)
+  User.isAuthenticated(req, username)
+    .then((isAuth) => {
+      if (!isAuth) throw new Error('Unauthorized')
+      return User.removeUserByUsername(username)
+    })
     .then(function (response) {
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      if (response.message == "Unauthorized") {
+        utils.writeJson(res, response.message, 401)
+      } else {
+        utils.writeJson(res, response);
+      }
     });
 };
 

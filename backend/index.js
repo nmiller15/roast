@@ -5,7 +5,8 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 const session = require('express-session');
-const db = require('./database/db')
+const cookieParser = require('cookie-parser');
+const db = require('./database/db');
 const { usersRouter } = require("./routers/usersRouter");
 const { roastsRouter } = require("./routers/roastsRouter");
 
@@ -35,6 +36,9 @@ app.use(session({
 
 // Set up JSON middleware to handle incoming JSON
 app.use(express.json());
+
+// Parse cookies to access JWT
+app.use(cookieParser());
 
 
 // Define routing for server

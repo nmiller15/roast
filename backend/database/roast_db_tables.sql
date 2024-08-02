@@ -36,7 +36,7 @@ CREATE TABLE "users" (
   "username" varchar UNIQUE,
   "password" varchar,
   "is_admin" boolean DEFAULT FALSE,
-  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  "created_at" timestamp DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Add foreign key constraint to the "roasts" table
@@ -74,7 +74,7 @@ GRANT p_db_connect, p_users_read, p_users_write, p_users_update, p_users_delete,
 
 -- Create an API role and grant necessary roles to it
 CREATE ROLE g_api;
-GRANT p_db_connect, p_users_write, p_users_read, p_roasts_read_write_delete, p_use_sequences TO g_api;
+GRANT p_db_connect, p_users_write, p_users_update, p_users_delete, p_users_read, p_roasts_read_write_delete, p_use_sequences TO g_api;
 
 -- Create user roles and grant group roles to them
 CREATE ROLE u_api WITH LOGIN;

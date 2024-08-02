@@ -119,7 +119,7 @@ exports.loginUser = function(body) {
  * isAdmin boolean property of user currently in session
  * returns User
  **/
-exports.removeUserByUsername = function(username, sessionId) {
+exports.removeUserByUsername = function(username) {
   return new Promise(function(resolve, reject) {
     db.query('DELETE from users WHERE username = $1', [username])
       .then((response) => {
@@ -152,6 +152,7 @@ exports.updateUserByUsername = function(body,username) {
 
 /**
  * Checks session and username for a match to provide authentication to a resource
+ * Is current user owner or admin?
  *
  * req Object Request of the user making the request
  * username String username of the owner of a resource
@@ -159,13 +160,20 @@ exports.updateUserByUsername = function(body,username) {
  **/
 // TODO: Check this operation!
 exports.isAuthenticated = function(req, username) {
-  if (req.session.user.username == username) {
+  return new Promise(function(resolve, reject) {
+    console.log(req.session.user);
+    if (req.session.user.username == username || req.session.user.isAdmin) {
     const { token } = req.cookies;
     jwt.verify(token, process.env.JWT_SECRET, {}, (err, info) => {
       if (err) return new Error(err);
-      return true;
+      if (info.username == req.session.user.username) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     })
   } else {
-    return false
-  }
+    resolve(false);
+  }})
 }
+
