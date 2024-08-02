@@ -34,7 +34,9 @@ CREATE TABLE "users" (
   "last_name" varchar,
   "email" varchar UNIQUE,
   "username" varchar UNIQUE,
-  "password" varchar
+  "password" varchar,
+  "is_admin" boolean DEFAULT FALSE,
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Add foreign key constraint to the "roasts" table

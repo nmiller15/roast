@@ -1,5 +1,5 @@
 INSERT INTO users (first_name, last_name, email, username, password)
-VALUES ( 'Nolan', 'Miller', 'mail@nolanmiller.me', 'nolanmiller', 'midnightcodermonkey');
+VALUES ( 'Nolan', 'Miller', 'mail@nolanmiller.me', 'nolanmiller', '$2b$10$WYBlELXPTSat3dK1DrX0EOcruh2VptxWRVvaaPADKRkMuHYwqTzSu');
 
 INSERT INTO roasts (user_id, date_roasted, rating, origin, variety, name, starting_weight_g, ending_weight_g, heat_level, start_temp_f, lowest_temp_f, first_crack_seconds, temp_rise_seconds, opened_lid_seconds, heat_off_seconds, dumped_seconds, is_favorite, notes) VALUES 
 (1, '2024-07-22', 3, 'Ethiopian', 'Yirgacheffe', 'Ethiopian Yirgacheffe', 228, 191, 'Med', 400, 325, 140, 180, 210, 235, 255, FALSE, 'Doesn''t taste as good as last time... I wonder if the weather is making the beans roast faster now that it''s warmer'),
