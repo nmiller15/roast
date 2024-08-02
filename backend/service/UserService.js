@@ -161,19 +161,23 @@ exports.updateUserByUsername = function(body,username) {
 // TODO: Check this operation!
 exports.isAuthenticated = function(req, username) {
   return new Promise(function(resolve, reject) {
-    console.log(req.session.user);
     if (req.session.user.username == username || req.session.user.isAdmin) {
-    const { token } = req.cookies;
-    jwt.verify(token, process.env.JWT_SECRET, {}, (err, info) => {
-      if (err) return new Error(err);
-      if (info.username == req.session.user.username) {
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    })
-  } else {
-    resolve(false);
-  }})
+      console.log(`AUTH ${req.session.user.username}\x1b[30m ${req.session.user.isAdmin ? 'isAdmin' : 'matched user'}\x1b[97m`)
+      const { token } = req.cookies;
+      jwt.verify(token, process.env.JWT_SECRET, {}, (err, info) => {
+        if (err) return new Error(err);
+        if (info.username == req.session.user.username) {
+          console.log(`AUTH ${req.session.user.username} \x1b[32mAPPROVED\x1b[30m valid token`)
+          resolve(true);
+        } else {
+          console.log(`AUTH ${req.session.user.username} \x1b[31mDENIED\x1b[30m invalid token`)
+          resolve(false);
+        }
+      })
+    } else {
+      console.log(`AUTH ${req.session.user.username} \x1b[31mDENIED\x1b[30m`)
+      resolve(false);
+    }
+  })
 }
 

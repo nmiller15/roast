@@ -70,7 +70,7 @@ exports.getUserRoasts = async function(username) {
 // TODO: Check this operation!
 exports.roastsRoastIdDELETE = function(roastId) {
   return new Promise((resolve, reject) => {
-    db.query('DELETE FROM roasts WHERE roast_id = $1;', [roastId])
+    db.query('DELETE FROM roasts WHERE id = $1;', [roastId])
       .then((response) => {
         resolve(response);
       }).catch(e => reject(e));
@@ -87,7 +87,7 @@ exports.roastsRoastIdDELETE = function(roastId) {
  **/
 exports.roastsRoastIdGET = function(roastId) {
   return new Promise(function(resolve, reject) {
-    db.query('SELECT * FROM roasts WHERE id = $1', [roastId])
+    db.query('SELECT roasts.*, users.username FROM roasts JOIN users ON roasts.user_id = users.id WHERE roasts.id = $1', [roastId])
       .then((response) => {
         if (response.rows.length === 0) {
           return reject('No roast found with that ID.');
