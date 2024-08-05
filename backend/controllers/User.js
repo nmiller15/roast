@@ -21,22 +21,35 @@ module.exports.createUser = function createUser (req, res, next, body) {
 };
 
 module.exports.getAllUsers = function getAllUsers (req, res, next) {
+  if (!req.session.user.isAdmin) throw new Error('Unauthorized')
   User.getAllUsers()
   .then(function (response) {
     utils.writeJson(res, response);
   })
-    .catch(function (response) {
+  .catch(function (response) {
+    if (response.message == "Unauthorized") {
+      utils.writeJson(res, response.message, 401)
+    } else {
       utils.writeJson(res, response);
-    });
+    }
+  });
   };
   
   module.exports.getUserByUsername = function getUserByUsername (req, res, next, username) {
-    User.getUserByUsername(username)
+    User.isAuthenticated(req, username)
+    .then((isAuth) => {
+      if (!isAuth) throw new Error('Unauthorized')
+      return User.getUserByUsername(username)
+    })
     .then(function (response) {
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      if (response.message == "Unauthorized") {
+        utils.writeJson(res, response.message, 401)
+      } else {
+        utils.writeJson(res, response);
+      }
     });
   };
   

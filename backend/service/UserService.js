@@ -15,7 +15,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
  * body User Add a new user to the database
  * returns User
  **/
-// TODO: Check this operation!
 exports.createUser = function(body) {
   return new Promise((resolve, reject) => {
     // Hash the password asynchronously
@@ -47,7 +46,6 @@ exports.createUser = function(body) {
  *
  * returns UsersArray
  **/
-// TODO: Check this operation!
 exports.getAllUsers = function() {
   return new Promise(function(resolve, reject) {
     db.query('SELECT * FROM users')
