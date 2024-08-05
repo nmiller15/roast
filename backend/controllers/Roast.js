@@ -70,7 +70,11 @@ module.exports.roastsRoastIdGET = function roastsRoastIdGET (req, res, next, roa
       utils.writeJson(res, roast)
     })
     .catch(function (response) {
-      utils.writeJson(res, response, 404);
+      if (response.message == "Unauthorized") {
+        utils.writeJson(res, response.message, 401)
+      } else {
+        utils.writeJson(res, response, 404);
+      }
     });
 };
 
@@ -90,6 +94,10 @@ module.exports.roastsRoastIdPUT = function roastsRoastIdPUT (req, res, next, bod
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      if (response.message == "Unauthorized") {
+        utils.writeJson(res, response.message, 401)
+      } else {
+        utils.writeJson(res, response, 404);
+      }
     });
 };
