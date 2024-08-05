@@ -3,7 +3,6 @@
 var utils = require('../utils/writer.js');
 var Roast = require('../service/RoastService.js');
 var User = require('../service/UserService.js');
-const { Users } = require('@phosphor-icons/react');
 
 module.exports.addRoast = function addRoast (req, res, next, body) {
   Roast.addRoast(body)
@@ -32,14 +31,15 @@ module.exports.getUserRoasts = function getUserRoasts(req, res, next, username) 
 };
 
 module.exports.roastsRoastIdDELETE = function roastsRoastIdDELETE (req, res, next, roastId) {
+  
   Roast.roastsRoastIdGET(roastId)
-    .then((response) => {
-      return response.username;
-    })
-    .then((username) => {
-      return User.isAuthenticated(req, username)
-    })
-    .then((isAuth) => {
+  .then((response) => {
+    return response.username;
+  })
+  .then((username) => {
+    return User.isAuthenticated(req, username)
+  })
+  .then((isAuth) => {
       if (!isAuth) throw new Error('Unauthorized')
       return Roast.roastsRoastIdDELETE(roastId) 
     })
@@ -47,7 +47,11 @@ module.exports.roastsRoastIdDELETE = function roastsRoastIdDELETE (req, res, nex
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      if (response.message == "Unauthorized") {
+        utils.writeJson(res, response.message, 401)
+      } else {
+        utils.writeJson(res, response);
+      }
     });
 };
 

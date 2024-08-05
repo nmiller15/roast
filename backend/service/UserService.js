@@ -161,6 +161,10 @@ exports.updateUserByUsername = function(body,username) {
 // TODO: Check this operation!
 exports.isAuthenticated = function(req, username) {
   return new Promise(function(resolve, reject) {
+    if (!req.session.user) {
+      console.log(`AUTH \x1b[31mDENIED\x1b[30m no user in session`)
+      resolve(false)
+    }
     if (req.session.user.username == username || req.session.user.isAdmin) {
       console.log(`AUTH ${req.session.user.username}\x1b[30m ${req.session.user.isAdmin ? 'isAdmin' : 'matched user'}\x1b[97m`)
       const { token } = req.cookies;
@@ -174,10 +178,10 @@ exports.isAuthenticated = function(req, username) {
           resolve(false);
         }
       })
-    } else {
-      console.log(`AUTH ${req.session.user.username} \x1b[31mDENIED\x1b[30m`)
-      resolve(false);
+      return;
     }
+    console.log(`AUTH ${req.session.user.username} \x1b[31mDENIED\x1b[30m`)
+    resolve(false);
   })
 }
 
