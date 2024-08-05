@@ -82,11 +82,20 @@ module.exports.removeUserByUsername = function removeUserByUsername (req, res, n
 };
 
 module.exports.updateUserByUsername = function updateUserByUsername (req, res, next, body, username) {
-  User.updateUserByUsername(body, username)
+  User.isAuthenticated(req, username)
+    .then((isAuth) => {
+      if (!isAuth) throw new Error('Unauthorized')
+        return User.updateUserByUsername(body, username)
+    })
     .then(function (response) {
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      console.log('caught');
+      if (response.message == "Unauthorized") {
+        utils.writeJson(res, response.message, 401)
+      } else {
+        utils.writeJson(res, response.message);
+      }
     });
 };

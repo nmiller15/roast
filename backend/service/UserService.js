@@ -1,6 +1,7 @@
 'use strict';
 const db = require('../database/db');
 const insertStatement = require('../utils/insertStatement');
+const updateStatement = require('../utils/updateStatement');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
@@ -141,8 +142,9 @@ exports.removeUserByUsername = function(username) {
 // TODO: Check this operation!
 exports.updateUserByUsername = function(body,username) {
   return new Promise(function(resolve, reject) {
+    
     const { text, values } = updateStatement(body, "users", username)
-
+    console.log('here');
     db.query(text, values).then((response) => {
       if (response.rowCount == 0) return reject('No user found with that username')
       resolve(response.rows[0]);

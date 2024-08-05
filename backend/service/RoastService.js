@@ -105,7 +105,7 @@ exports.roastsRoastIdGET = function(roastId) {
  * roastId Integer An integer that matches an id of a roast
  * returns Roast
  **/
-// TODO: Check this operation!
+
 exports.roastsRoastIdPUT = function(body, roastId) {
   return new Promise(function(resolve, reject) {
     const { text, values } = updateStatement(body, 'roasts', roastId);
