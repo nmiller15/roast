@@ -69,7 +69,6 @@ exports.getAllUsers = function() {
  * username String Username of the owner of a list of roasts
  * returns User
  **/
-// TODO: Check this operation!
 exports.getUserByUsername = function(username) {
   return new Promise(function(resolve, reject) {
     db.query('SELECT * FROM users WHERE username = $1', [username])
@@ -139,7 +138,6 @@ exports.removeUserByUsername = function(username) {
  * username String Username of the owner of a list of roasts
  * returns User
  **/
-// TODO: Check this operation!
 exports.updateUserByUsername = function(body,username) {
   return new Promise(function(resolve, reject) {
     
