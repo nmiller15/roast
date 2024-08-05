@@ -158,7 +158,6 @@ exports.updateUserByUsername = function(body,username) {
  * username String username of the owner of a resource
  * returns Boolean
  **/
-// TODO: Check this operation!
 exports.isAuthenticated = function(req, username) {
   return new Promise(function(resolve, reject) {
     if (!req.session.user) {

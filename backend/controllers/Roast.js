@@ -79,6 +79,7 @@ module.exports.roastsRoastIdGET = function roastsRoastIdGET (req, res, next, roa
 };
 
 module.exports.roastsRoastIdPUT = function roastsRoastIdPUT (req, res, next, body, roastId) {
+  console.log(roastId);
   Roast.roastsRoastIdGET(roastId)
     .then((response) => {
       return response.username;
@@ -88,7 +89,7 @@ module.exports.roastsRoastIdPUT = function roastsRoastIdPUT (req, res, next, bod
     })
     .then((isAuth) => {
       if (!isAuth) throw new Error('Unauthorized')
-      return Roast.roastsRoastIdPUT(roastId) 
+      return Roast.roastsRoastIdPUT(body, roastId) 
     })
     .then(function (response) {
       utils.writeJson(res, response);

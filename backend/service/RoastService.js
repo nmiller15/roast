@@ -67,7 +67,6 @@ exports.getUserRoasts = async function(username) {
  * roastId Integer An integer that matches an id of a roast
  * returns Roast
  **/
-// TODO: Check this operation!
 exports.roastsRoastIdDELETE = function(roastId) {
   return new Promise((resolve, reject) => {
     db.query('DELETE FROM roasts WHERE id = $1;', [roastId])
