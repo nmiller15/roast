@@ -63,7 +63,7 @@ function Card ({ roast, roastStep, roastProgress }) {
 
     return !isActive
     ?  (
-        <div className="Card collapsed">
+        <div className="Card collapsed" key={roast.id}>
             <div className="roast-details" onClick={expand}>
                 <h3>{name ? name : `${origin} ${variety}`}</h3>
                 <p>{dateFormat(dateRoasted, "mm/dd/yyyy")} - {roastCalc(percentLoss)} ({percentLoss}%)</p>
@@ -74,7 +74,7 @@ function Card ({ roast, roastStep, roastProgress }) {
         </div>
     )
     : (
-        <div className="full-screen-container">
+        <div className="full-screen-container" key={roast.id}>
             <div className="Card expanded">
                 <div className="title-bar">
                     <h2>{name ? name : `${origin} ${variety}`}</h2>

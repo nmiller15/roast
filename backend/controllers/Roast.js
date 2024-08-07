@@ -21,14 +21,18 @@ module.exports.getUserRoasts = function getUserRoasts(req, res, next, username) 
       return Roast.getUserRoasts(username)
     })
     .then(function (response) {
-      if (!response) utils.writeJson(res, response, 404);
+      if (!response) utils.writeJson(res, response.message, 404);
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      // Handle no user found.
-      utils.writeJson(res, response, 404);
+      console.log('getUserRoasts caught')
+      if (response.message == "Unauthorized") {
+        utils.writeJson(res, response.message, 401)
+      } else {
+        utils.writeJson(res, response.message, 404);
+      }
     });
-};
+}
 
 module.exports.roastsRoastIdDELETE = function roastsRoastIdDELETE (req, res, next, roastId) {
   

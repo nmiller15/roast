@@ -10,13 +10,50 @@ const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState({ roasts: [] });
 
-    const login = (userData) => {
-      const userRecord = users.find((user) => user.username === userData.username);
-      if (!userRecord) return;
-      if (userRecord.password === userData.password) {
-        setIsLoggedIn(true);
-        setUser(userRecord);
-      }
+    const login = async (userData) => {
+      // Mock login logic
+      // const userRecord = users.find((user) => user.username === userData.username);
+      // if (!userRecord) return;
+      // if (userRecord.password === userData.password) {
+      //   setIsLoggedIn(true);
+      //   setUser(userRecord);
+      // }
+      const loginResponse = await fetch(`${process.env.REACT_APP_API_URI}/user/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData),
+        credentials: 'include'
+      })
+      if (!loginResponse.ok) return;
+      const jsonResponse = await loginResponse.json()
+      setIsLoggedIn(true)
+      setUser(prev => {
+        return {
+          ...prev,
+          id: jsonResponse.id,
+          firstName: jsonResponse.firstName,
+          lastName: jsonResponse.lastName,
+          email: jsonResponse.email,
+          username: jsonResponse.username,
+          isAdmin: jsonResponse.isAdmin,
+          createdAt: jsonResponse.createdAt
+        }
+      });
+      // Get user roasts when logging in:
+      const roastsResponse = await fetch(`${process.env.REACT_APP_API_URI}/roasts?username=${jsonResponse.username}`, {
+        method: 'GET',
+        credentials: "include"
+      })
+      if (!roastsResponse.ok) return;
+      const roastsJson = await roastsResponse.json();
+      setUser(prev => {
+        return {
+          ...prev,
+          roasts: roastsJson,
+        }
+      })
     };
 
     const createAccount = (userData) => {

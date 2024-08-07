@@ -93,10 +93,10 @@ exports.loginUser = function(body) {
       }
       body.response = response;
       const hashedPassword = response.rows[0].password;
-      return bcrypt.compare(body.password, hashedPassword), response;
+      return bcrypt.compare(body.password, hashedPassword);
     })
     .then((isMatch) => {
-      if (isMatch) {
+      if (isMatch == true) {
         // Generate JWT token
         const token = jwt.sign({ username: body.username }, JWT_SECRET, { expiresIn: '24h' });
         resolve({token, user: body.response.rows[0]});
@@ -174,11 +174,10 @@ exports.isAuthenticated = function(req, username) {
           console.log(`AUTH ${req.session.user.username} \x1b[31mDENIED\x1b[30m invalid token`)
           resolve(false);
         }
-      })
-      return;
+      }) 
+    } else {
+        resolve(false)
     }
-    console.log(`AUTH ${req.session.user.username} \x1b[31mDENIED\x1b[30m`)
-    resolve(false);
   })
 }
 

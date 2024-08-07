@@ -1,9 +1,11 @@
 import roasts from "../mocks/roasts";
 import { currentRoast } from "../signals";
 
-export const getRoast = (id, user) => {
-  const foundIndex = user.roasts.findIndex((item) => item.id === id)
-  if (foundIndex) return user.roasts[foundIndex]
+export const getRoast = async (id, user) => {
+  // Mock Calls
+  // const foundIndex = user.roasts.findIndex((item) => item.id === id)
+  // if (foundIndex) return user.roasts[foundIndex]
+  fetch(process.env.REACT_APP_API_URI)
 }
 
 export const saveRoast = (user) => {

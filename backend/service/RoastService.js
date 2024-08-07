@@ -51,6 +51,7 @@ exports.getUserRoasts = async function(username) {
     //   });
     db.query('SELECT roasts.*, users.username FROM roasts JOIN users ON roasts.user_id = users.id WHERE username = $1;', [username])
       .then((response) => {
+        console.log(response);
         if (response.rowCount == 0) {
           return reject('No roasts found.')
         }

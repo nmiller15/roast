@@ -6,6 +6,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const db = require('./database/db');
 const { usersRouter } = require("./routers/usersRouter");
 const { roastsRouter } = require("./routers/roastsRouter");
@@ -19,14 +20,16 @@ const serverPort = 8080;
 app.use(morgan('dev'));
 
 // Enable CORS
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
+}));
 
 // Enable express-session middleware
-
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     store: db.store,
     cookie: {
         secure: process.env.API_ENV === 'DEVELOPMENT' ? false : true,

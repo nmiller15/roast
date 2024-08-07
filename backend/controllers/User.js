@@ -15,7 +15,6 @@ module.exports.createUser = function createUser (req, res, next, body) {
       return module.exports.loginUser(req, res, next, body)
     })
     .catch(function (response) {
-      console.log(response);
       utils.writeJson(res, response, 400);
     });
 };
@@ -57,10 +56,15 @@ module.exports.getAllUsers = function getAllUsers (req, res, next) {
     User.loginUser(body)
     .then(function (response) {
       req.session.user = objectKeysToCamel(response.user);
-      res.cookie('token', response.token).json(req.session.user);
+      const cookieOptions = {
+        maxAge: 1000 * 60 * 60 * 24,
+        httpOnly: true,
+      }
+      res.cookie('token', response.token, cookieOptions).json(req.session.user);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      // console.log('caught', response);
+      utils.writeJson(res, response, 400);
     });
   };
   

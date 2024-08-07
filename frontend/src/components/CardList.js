@@ -9,7 +9,7 @@ function CardList({ roasts, favoritesList = false, roastStep, roastProgress }) {
     <div className="CardList">
         {roasts.map((roast) => {
             if (roast) {
-              return <Card key={roast.id} roast={roast} roastStep={roastStep} roastProgress={roastProgress} />
+              return <Card roast={roast} roastStep={roastStep} roastProgress={roastProgress} />
             }
             return null;
         })}
@@ -19,7 +19,7 @@ function CardList({ roasts, favoritesList = false, roastStep, roastProgress }) {
     <div className="CardList">
       {roasts.map((roast, index) => {
         if (roast.isFavorite) {
-          return <Card key={roast.id} roast={roast} />
+          return <Card roast={roast} />
         } else {
           return <></>;
         }
