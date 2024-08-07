@@ -3,6 +3,7 @@
 var utils = require('../utils/writer.js');
 var Roast = require('../service/RoastService.js');
 var User = require('../service/UserService.js');
+const objectKeysToCamel = require('../utils/objectKeysToCamel.js');
 
 module.exports.addRoast = function addRoast (req, res, next, body) {
   Roast.addRoast(body)
@@ -22,6 +23,9 @@ module.exports.getUserRoasts = function getUserRoasts(req, res, next, username) 
     })
     .then(function (response) {
       if (!response) utils.writeJson(res, response.message, 404);
+      response.forEach((obj, index) => {
+        response[index] = objectKeysToCamel(obj);
+      })
       utils.writeJson(res, response);
     })
     .catch(function (response) {
