@@ -20,7 +20,7 @@ function Home() {
     setRoastActive(true);
     setRoastProgress("start-roast-form")
     setRoastStep(1);
-    currentRoast.value = new Roast(Date.now());
+    currentRoast.value = new Roast(new Date().toISOString());
   }
 
   const closeRoaster = () => {

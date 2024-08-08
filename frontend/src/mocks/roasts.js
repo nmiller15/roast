@@ -1,6 +1,5 @@
 class Roast {
     constructor(date) {
-        this.id = roasts.length + 1
         this.dateRoasted = date
         this.rating = 0
         this.origin = ''

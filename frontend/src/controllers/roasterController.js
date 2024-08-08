@@ -8,13 +8,18 @@ export const getRoast = async (id, user) => {
   fetch(process.env.REACT_APP_API_URI)
 }
 
-export const saveRoast = (user) => {
-  const newRoast = {
-    ...currentRoast.value,
-    id: user.roasts.length
-  }
-  user.roasts.push(newRoast);
-  return user.roasts[roasts.length - 1]
+export const saveRoast = async (user) => {
+  const newRoast = currentRoast.value
+  console.log(newRoast);
+  const response = await fetch(`${process.env.REACT_APP_API_URI}/roasts/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newRoast)
+  })
+  if (!response) return;
+  return response;
 }
 
 export const updateRoast = (roast, user) => {
