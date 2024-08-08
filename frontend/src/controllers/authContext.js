@@ -7,8 +7,17 @@ const AuthContext = createContext();
 
 // Create a provider component
 const AuthProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState({ roasts: [] });
+  //TODO: Create a useLocalStorage hook
+    const [isLoggedIn, setIsLoggedIn] = useState(() => {
+      const saved = localStorage.getItem('isLoggedIn');
+      const initialValue = JSON.parse(saved)
+      return initialValue || false
+    });
+    const [user, setUser] = useState(() => {
+      const saved = localStorage.getItem('user');
+      const initialValue = JSON.parse(saved);
+      return initialValue || { roasts: [] }
+    });
 
     const login = async (userData) => {
       // Mock login logic
@@ -102,6 +111,11 @@ const AuthProvider = ({ children }) => {
       setIsLoggedIn(false);
       setUser({ roasts: [] });
     };
+
+    useEffect(() => {
+      localStorage.setItem("user", JSON.stringify(user))
+      localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+    }, [user, isLoggedIn])
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, user, login, logout, createAccount, getUserRoasts }}>

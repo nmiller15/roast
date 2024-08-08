@@ -21,7 +21,7 @@ app.use(morgan('dev'));
 
 // Enable CORS
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: true,
     credentials: true
 }));
 
