@@ -109,8 +109,9 @@ exports.roastsRoastIdGET = function(roastId) {
 exports.roastsRoastIdPUT = function(body, roastId) {
   return new Promise(function(resolve, reject) {
     const { text, values } = updateStatement(body, 'roasts', roastId);
+    console.log(text, values);
     db.query(text, values)
-      .then((response) => {
+    .then((response) => {
         if (response.rowCount === 0) {
           return reject('No roast found with that ID.');
         }

@@ -57,6 +57,22 @@ const AuthProvider = ({ children }) => {
       })
     };
 
+    const getUserRoasts = async (user) => {
+      if (!user.username) return;
+      const roastsResponse = await fetch(`${process.env.REACT_APP_API_URI}/roasts?username=${user.username}`, {
+        method: 'GET',
+        credentials: "include"
+      })
+      if (!roastsResponse.ok) return;
+      const roastsJson = await roastsResponse.json();
+      setUser(prev => {
+        return {
+          ...prev,
+          roasts: roastsJson,
+        }
+      })
+    }
+
     const createAccount = async (userData) => {
       const body = JSON.stringify({
         email: userData.email,
@@ -88,7 +104,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, user, login, logout, createAccount }}>
+        <AuthContext.Provider value={{ isLoggedIn, user, login, logout, createAccount, getUserRoasts }}>
             {children}
         </AuthContext.Provider>
     );

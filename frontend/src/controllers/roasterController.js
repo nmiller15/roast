@@ -8,9 +8,9 @@ export const getRoast = async (id, user) => {
   fetch(process.env.REACT_APP_API_URI)
 }
 
+ 
 export const saveRoast = async (user) => {
   const newRoast = currentRoast.value
-  console.log(newRoast);
   const response = await fetch(`${process.env.REACT_APP_API_URI}/roasts/`, {
     method: 'POST',
     headers: {
@@ -22,14 +22,23 @@ export const saveRoast = async (user) => {
   return response;
 }
 
-export const updateRoast = (roast, user) => {
-  const foundIndex = user.roasts.findIndex((item) => item.id === roast.id)
-  console.log(roast);
-  if (foundIndex || foundIndex === 0) {
-    user.roasts[foundIndex] = roast;
-    console.log(user.roasts[foundIndex]);
+export const updateRoast = async (roast, user) => {
+  const updatedRoast = {
+    id: roast.id,
+    isFavorite: roast.isFavorite,
+    notes: roast.notes,
+    rating: roast.rating
   }
-  return roast;
+  const response = await fetch(`${process.env.REACT_APP_API_URI}/roasts/${roast.id}`, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updatedRoast)
+  })
+  if (!response) return;
+  return response;
 }
 
 export const logTime = (roastStep, time) => {

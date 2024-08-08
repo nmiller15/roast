@@ -31,6 +31,8 @@ function Card ({ roast, roastStep, roastProgress }) {
                 ...prevCardRoast,
                 isFavorite: updatedIsFavorite
             }));
+
+            console.log({ ...cardRoast, isFavorite: updatedIsFavorite })
             
             // Use debounce with useCallback to ensure the function identity remains stable
             debounce(() => {
@@ -74,7 +76,7 @@ function Card ({ roast, roastStep, roastProgress }) {
         </div>
     )
     : (
-        <div className="full-screen-container" key={roast.id}>
+        <div className="full-screen-container" key={cardRoast.id}>
             <div className="Card expanded">
                 <div className="title-bar">
                     <h2>{name ? name : `${origin} ${variety}`}</h2>
@@ -82,7 +84,7 @@ function Card ({ roast, roastStep, roastProgress }) {
                 </div>
                 <hr/>
                 <div className="expanded-body">
-                    <RoastDetails roast={roast} />
+                    <RoastDetails roast={cardRoast} setRoast={setCardRoast}/>
                     <div className="notes">
                         <div className="notes-head">
                             <h3>Notes</h3>

@@ -2,7 +2,7 @@ import { LoginForm } from './LoginForm';
 import { CreateAccountForm } from './CreateAccountForm';
 import { LoggedOut } from './LoggedOut';
 import { AccountLoggedIn } from './AccountLoggedIn';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Account.css'
 import { Settings, ProfileCircle } from 'iconoir-react'
 import CardList from '../components/CardList';
@@ -11,7 +11,7 @@ import users from '../mocks/users';
 import { AuthContext } from '../controllers/authContext';
 
 function Account() {
-  const { isLoggedIn, login, logout, createAccount } = useContext(AuthContext);
+  const { isLoggedIn, login, logout, createAccount, getUserRoasts, user } = useContext(AuthContext);
   const [ loginForm, setLoginForm ] = useState(null);
   const [ userInfo, setUserInfo] = useState({});
 
@@ -32,6 +32,18 @@ function Account() {
     setLoginForm(null);
     setUserInfo({});
   }
+
+  
+  useEffect(() => {
+    const reloadRoasts = async () => {
+      const roasts = await getUserRoasts(user);
+      setUserInfo(prev => ({
+        ...prev,
+        roasts
+      }))
+    }
+    reloadRoasts()
+  }, [])
 
   return (
     <div className="Account Page">

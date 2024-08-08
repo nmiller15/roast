@@ -8,8 +8,7 @@ import dateFormat from 'dateformat';
 import Rating from './Rating';
 import { currentRoast } from '../signals';
 
-function RoastDetails({ roast }) {
-
+function RoastDetails({ roast, setRoast }) {
   const {
     dateRoasted,
     rating,
@@ -37,7 +36,7 @@ function RoastDetails({ roast }) {
   return (
     <div className="RoastDetails">
       <div className="expanded-description">
-          <Rating rating={rating} />
+          <Rating rating={rating} roast={roast} setRoast={setRoast}/>
           <p>Roasted on {dateFormat(dateRoasted, "mmmm d, yyyy")}</p>
           <p>{roastString(percentLoss)} ({percentLoss}%)</p>
           <p>{roastedOz} oz</p>

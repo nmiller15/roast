@@ -8,21 +8,21 @@ import { currentRoast } from '../signals';
 import { AuthContext } from '../controllers/authContext';
 
 
-function Rating({ rating }) {
-  const [currentRating, setCurrentRating] = useState(currentRoast.value.rating);
+function Rating({ rating, roast }) {
+  const [currentRating, setCurrentRating] = useState(roast.rating);
   const { user } = useContext(AuthContext);
   const debounce = useDebounce();
 
   const handleClick = (n) => {
     if (n !== currentRating) {
-        currentRoast.value.rating = n
+        currentRoast.value.rating = n;
         setCurrentRating(n);
     } else {
         currentRoast.value.rating = 0;
         setCurrentRating(0);
     }
     debounce(() => {
-        updateRoast(currentRoast.value, user);
+        updateRoast({...currentRoast.value, id: roast.id}, user);
     })
   }
 
