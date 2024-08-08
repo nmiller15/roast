@@ -77,9 +77,14 @@ const AuthProvider = ({ children }) => {
       login({ username: userData.username, password: userData.password})
     }
 
-    const logout = () => {
-        setIsLoggedIn(false);
-        setUser({ roasts: [] });
+    const logout = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_URI}/user/logout`, {
+        method: 'POST',
+        credentials: 'include'
+      })
+      if (!response) return;
+      setIsLoggedIn(false);
+      setUser({ roasts: [] });
     };
 
     return (
