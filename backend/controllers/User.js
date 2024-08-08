@@ -10,9 +10,7 @@ module.exports.createUser = function createUser (req, res, next, body) {
     .then(function (response) {
       // Handle user creation error
       if (response.name === 'error') throw new Error(response);
-
-      // Log in the user after a successful creation
-      return module.exports.loginUser(req, res, next, body)
+      utils.writeJson(res, response, 201);
     })
     .catch(function (response) {
       utils.writeJson(res, response, 400);

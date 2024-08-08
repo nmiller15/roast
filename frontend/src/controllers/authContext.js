@@ -18,6 +18,7 @@ const AuthProvider = ({ children }) => {
       //   setIsLoggedIn(true);
       //   setUser(userRecord);
       // }
+      console.log('here');
       const loginResponse = await fetch(`${process.env.REACT_APP_API_URI}/user/login`, {
         method: 'POST',
         headers: {
@@ -56,10 +57,24 @@ const AuthProvider = ({ children }) => {
       })
     };
 
-    const createAccount = (userData) => {
-      users.push(userData);
-      setIsLoggedIn(true);
-      setUser(userData);
+    const createAccount = async (userData) => {
+      const body = JSON.stringify({
+        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        password: userData.password,
+        username: userData.username
+      })
+      const response = await fetch(`${process.env.REACT_APP_API_URI}/user/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body,
+      })
+      if (!response) return;
+      login({ username: userData.username, password: userData.password})
     }
 
     const logout = () => {
