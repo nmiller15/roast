@@ -21,7 +21,7 @@ app.use(morgan('dev'));
 
 // Enable CORS
 app.use(cors({
-    origin: *,
+    origin: '*',
     methods: 'GET, POST, PUT, DELETE',
     credentials: true
 }));
