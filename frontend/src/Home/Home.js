@@ -4,7 +4,7 @@ import { HeatingSquare } from 'iconoir-react'
 import Button from '../components/Button'
 import CardList from '../components/CardList'
 import '../components/Card.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Roaster from '../Roaster/Roaster'
 import { Roast } from '../mocks/roasts';
 import { currentRoast } from '../signals'
@@ -14,7 +14,7 @@ function Home() {
   const [roastActive, setRoastActive] = useState(false);
   const [roastProgress, setRoastProgress] = useState();
   const [roastStep, setRoastStep] = useState(null);
-  const { isLoggedIn, user } = useContext(AuthContext);
+  const { isLoggedIn, user, getUserRoasts } = useContext(AuthContext);
 
   const handleNewRoast = () => {
     setRoastActive(true);
@@ -26,6 +26,10 @@ function Home() {
   const closeRoaster = () => {
     setRoastActive(false);
   }
+
+  useEffect(() => {
+    getUserRoasts(user);
+  }, [])
 
   return !roastActive
   ? 
@@ -44,7 +48,7 @@ function Home() {
         { isLoggedIn || user.roasts ? 
           <>
             <h3>Previous Roast</h3>
-            <CardList roasts={[user.roasts[user.roasts.length - 1]]} />
+            <CardList roasts={[user.roasts[0]]} />
           </> : <></>
       }
       </div>

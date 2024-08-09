@@ -1,6 +1,8 @@
 import roasts from "../mocks/roasts";
 import { currentRoast } from "../signals";
 
+const baseUrl = process.env.NODE_ENV == "production" ? 'https://roast-api.nolanmiller.me' : 'http://localhost:8080'
+
 export const getRoast = async (id, user) => {
   // Mock Calls
   // const foundIndex = user.roasts.findIndex((item) => item.id === id)
@@ -10,8 +12,11 @@ export const getRoast = async (id, user) => {
 
  
 export const saveRoast = async (user) => {
-  const newRoast = currentRoast.value
-  const response = await fetch(`${process.env.REACT_APP_API_URI}/roasts/`, {
+  const newRoast = {
+    ...currentRoast.value,
+    userId: user.id
+  }
+  const response = await fetch(`${baseUrl}/roasts/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -29,7 +34,7 @@ export const updateRoast = async (roast, user) => {
     notes: roast.notes,
     rating: roast.rating
   }
-  const response = await fetch(`${process.env.REACT_APP_API_URI}/roasts/${roast.id}`, {
+  const response = await fetch(`${baseUrl}/roasts/${roast.id}`, {
     method: 'PUT',
     credentials: 'include',
     headers: {

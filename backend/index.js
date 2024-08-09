@@ -16,12 +16,15 @@ require('dotenv').config()
 // Declare variables needed for the server
 const serverPort = 8080;
 
+// Trust caddy proxy server
+app.set('trust proxy', 1)
+
 // Set up logging middleware
 app.use(morgan('dev'));
 
 // Enable CORS
 app.use(cors({
-    origin: '*',
+    origin: 'https://roast.nolanmiller.me',
     methods: 'GET, POST, PUT, DELETE',
     credentials: true
 }));
@@ -35,8 +38,9 @@ app.use(session({
     saveUninitialized: false,
     store: db.store,
     cookie: {
-        secure: process.env.API_ENV === 'DEVELOPMENT' ? false : true,
+        secure: true,
         maxAge: 1000 * 60 * 60 * 24,
+	httpOnly: true
     }
 }))
 

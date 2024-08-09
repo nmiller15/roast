@@ -57,6 +57,7 @@ module.exports.getAllUsers = function getAllUsers (req, res, next) {
       const cookieOptions = {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
+	secure: true
       }
       res.cookie('token', response.token, cookieOptions).json(req.session.user);
     })

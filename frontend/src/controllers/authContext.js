@@ -5,6 +5,9 @@ import users from '../mocks/users';
 // Create a context for authentication
 const AuthContext = createContext();
 
+// Create base url variable
+const baseUrl = process.env.NODE_ENV == "production" ? 'https://roast-api.nolanmiller.me' : 'http://localhost:8080'
+
 // Create a provider component
 const AuthProvider = ({ children }) => {
   //TODO: Create a useLocalStorage hook
@@ -28,13 +31,14 @@ const AuthProvider = ({ children }) => {
       //   setUser(userRecord);
       // }
       console.log(process.env);
-      const loginResponse = await fetch(`${process.env.REACT_APP_API_URI}/user/login`, {
+      const loginResponse = await fetch(`${baseUrl}/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData),
-        credentials: 'include'
+        credentials: 'include',
+	mode: 'cors'
       })
       if (!loginResponse.ok) return;
       const jsonResponse = await loginResponse.json()
@@ -52,7 +56,7 @@ const AuthProvider = ({ children }) => {
         }
       });
       // Get user roasts when logging in:
-      const roastsResponse = await fetch(`${process.env.REACT_APP_API_URI}/roasts?username=${jsonResponse.username}`, {
+      const roastsResponse = await fetch(`${baseUrl}/roasts?username=${jsonResponse.username}`, {
         method: 'GET',
         credentials: "include"
       })
@@ -68,7 +72,7 @@ const AuthProvider = ({ children }) => {
 
     const getUserRoasts = async (user) => {
       if (!user.username) return;
-      const roastsResponse = await fetch(`${process.env.REACT_APP_API_URI}/roasts?username=${user.username}`, {
+      const roastsResponse = await fetch(`${baseUrl}/roasts?username=${user.username}`, {
         method: 'GET',
         credentials: "include"
       })
@@ -90,7 +94,7 @@ const AuthProvider = ({ children }) => {
         password: userData.password,
         username: userData.username
       })
-      const response = await fetch(`${process.env.REACT_APP_API_URI}/user/`, {
+      const response = await fetch(`${baseUrl}/user/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -103,7 +107,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const logout = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_URI}/user/logout`, {
+      const response = await fetch(`${baseUrl}/user/logout`, {
         method: 'POST',
         credentials: 'include'
       })
