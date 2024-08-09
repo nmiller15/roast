@@ -21,9 +21,12 @@ app.use(morgan('dev'));
 
 // Enable CORS
 app.use(cors({
-    origin: true,
+    origin: *,
+    methods: 'GET, POST, PUT, DELETE',
     credentials: true
 }));
+
+app.options(0, cors());
 
 // Enable express-session middleware
 app.use(session({
