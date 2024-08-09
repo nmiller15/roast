@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
       //   setIsLoggedIn(true);
       //   setUser(userRecord);
       // }
-      console.log('here');
+      console.log(process.env);
       const loginResponse = await fetch(`${process.env.REACT_APP_API_URI}/user/login`, {
         method: 'POST',
         headers: {
